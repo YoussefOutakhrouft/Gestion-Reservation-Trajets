@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.javafx_project.GestController"
+            prefHeight="400.0" prefWidth="600.0">
+
+    <!-- Sidebar (Left) -->
+    <left>
+        <VBox prefWidth="200.0" style="-fx-background-color: #343a40; -fx-padding: 10;">
+            <children>
+                <Label style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" text="Gestionnaire Panel" />
+                <Button fx:id="mesTachesBtn" onAction="#showMesTaches" prefWidth="180.0" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-margin: 5;" text="Mes Tâches" />
+                <Button fx:id="logoutBtn" onAction="#logout" prefWidth="180.0" style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-margin: 5;" text="Déconnexion" />
+            </children>
+        </VBox>
+    </left>
+    <!-- Contenu central (Center) - Dynamique -->
+    <center>
+        <VBox alignment="CENTER" spacing="20.0" style="-fx-padding: 20;">
+            <children>
+                <Label fx:id="contentLabel" style="-fx-font-size: 24px; -fx-text-fill: #333333;" text="Bienvenue dans l'interface Gestionnaire !" />
+                <!-- Ici, tu peux ajouter d'autres éléments ou charger dynamiquement -->
+            </children>
+        </VBox>
+    </center>
+
+</BorderPane>

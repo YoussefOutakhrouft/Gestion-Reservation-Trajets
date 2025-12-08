@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<?import javafx.scene.control.cell.PropertyValueFactory?>
+<?import javafx.collections.FXCollections?>
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.javafx_project.CreateUserController"
+      alignment="CENTER" spacing="20.0" style="-fx-padding: 20;">
+
+    <children>
+        <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Gestion des Utilisateurs" />
+        <!-- TableView pour lister les utilisateurs -->
+        <TableView fx:id="usersTable" prefHeight="200.0" prefWidth="700.0">
+        <columns>
+            <TableColumn fx:id="idColumn" prefWidth="50.0" text="ID">
+                <cellValueFactory>
+                    <PropertyValueFactory property="id" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="nomColumn" prefWidth="100.0" text="Nom">
+                <cellValueFactory>
+                    <PropertyValueFactory property="nom" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="prenomColumn" prefWidth="100.0" text="Prénom">
+                <cellValueFactory>
+                    <PropertyValueFactory property="prenom" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="emailColumn" prefWidth="150.0" text="Email">
+                <cellValueFactory>
+                    <PropertyValueFactory property="email" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="roleColumn" prefWidth="100.0" text="Rôle">
+                <cellValueFactory>
+                    <PropertyValueFactory property="role" />
+                </cellValueFactory>
+            </TableColumn>
+            <TableColumn fx:id="actionColumn" prefWidth="150.0" text="Actions">
+                <!-- Supprimé : <cellFactory><javafx.util.Callback factory="#createActionCell" /></cellFactory> -->
+            </TableColumn>
+        </columns>
+        </TableView>
+        <Label style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Créer ou Modifier un Utilisateur" />
+        <GridPane hgap="10" vgap="10">
+        <columnConstraints>
+            <ColumnConstraints minWidth="100" prefWidth="100" />
+            <ColumnConstraints minWidth="200" prefWidth="200" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints minHeight="30" prefHeight="30" />
+            <RowConstraints minHeight="30" prefHeight="30" />
+            <RowConstraints minHeight="30" prefHeight="30" />
+            <RowConstraints minHeight="30" prefHeight="30" />
+            <RowConstraints minHeight="30" prefHeight="30" />
+        </rowConstraints>
+        <Label style="-fx-font-size: 14px;" text="Nom :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
+        <TextField fx:id="nomField" promptText="Entrez le nom" GridPane.columnIndex="1" GridPane.rowIndex="0" />
+        <Label style="-fx-font-size: 14px;" text="Prénom :" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+        <TextField fx:id="prenomField" promptText="Entrez le prénom" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+        <Label style="-fx-font-size: 14px;" text="Email :" GridPane.columnIndex="0" GridPane.rowIndex="2" />
+        <TextField fx:id="emailField" promptText="Entrez l'email" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+        <Label style="-fx-font-size: 14px;" text="Mot de Passe :" GridPane.columnIndex="0" GridPane.rowIndex="3" />
+        <PasswordField fx:id="passwordField" promptText="Entrez un nouveau mot de passe (laisser vide pour garder l'ancien)" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+        <Label style="-fx-font-size: 14px;" text="Rôle :" GridPane.columnIndex="0" GridPane.rowIndex="4" />
+        <ComboBox fx:id="roleComboBox" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+            <items>
+                <FXCollections fx:factory="observableArrayList">
+                    <String fx:value="ADMIN" />
+                    <String fx:value="GEST" />
+                </FXCollections>
+            </items>
+        </ComboBox>
+    </GridPane>
+        <Button fx:id="createUserBtn" onAction="#createUser" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-font-size: 16px;" text="Créer Utilisateur" />
+        <Label fx:id="messageLabel" style="-fx-text-fill: red;" text="" />
+    </children>
+
+</VBox>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.javafx_project.VehiculeController"
+            spacing="10" style="-fx-padding: 20;">
+    <children>
+        <Label text="Créer un Véhicule" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+        <!-- Champs pour le véhicule -->
+        <HBox spacing="10">
+            <Label text="Numéro de matricule :" />
+            <TextField fx:id="numeroMatriculeField" promptText="Ex: ABC-123" />
+        </HBox>
+        <HBox spacing="10">
+            <Label text="Marque :" />
+            <TextField fx:id="marqueField" promptText="Ex: Renault" />
+        </HBox>
+        <HBox spacing="10">
+            <Label text="Nombre de places :" />
+            <TextField fx:id="nombrePlacesField" promptText="Ex: 50" />
+        </HBox>
+        <!-- Boutons d'action -->
+        <HBox spacing="10">
+            <Button fx:id="saveBtn" text="Sauvegarder Véhicule" onAction="#saveVehicule" style="-fx-background-color: #28a745; -fx-text-fill: white;" />
+            <Button fx:id="cancelBtn" text="Annuler" onAction="#cancel" style="-fx-background-color: #dc3545; -fx-text-fill: white;" />
+        </HBox>
+    </children>
+
+</VBox>

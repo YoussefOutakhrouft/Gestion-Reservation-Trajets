@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.javafx_project.ListeTrajetsController"
+            spacing="10" style="-fx-padding: 20;">
+    <children>
+        <Label text="Liste des Trajets" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+        <!-- TableView pour afficher les trajets -->
+        <TableView fx:id="trajetsTable" prefHeight="300.0">
+            <columns>
+                <TableColumn fx:id="idColumn" text="ID" prefWidth="50" />
+                <TableColumn fx:id="dateColumn" text="Date" prefWidth="100" />
+                <TableColumn fx:id="heureDepartColumn" text="Heure Départ" prefWidth="100" />
+                <TableColumn fx:id="villeDepartColumn" text="Ville Départ" prefWidth="120" />
+                <TableColumn fx:id="villeArriveeColumn" text="Ville Arrivée" prefWidth="120" />
+                <TableColumn fx:id="vehiculeColumn" text="Véhicule" prefWidth="120" />
+                <TableColumn fx:id="placesRestantesColumn" text="Places Restantes" prefWidth="120" />
+            </columns>
+        </TableView>
+        <!-- Boutons d'action -->
+        <HBox spacing="10">
+            <Button fx:id="modifierBtn" text="Modifier Trajet" onAction="#modifierTrajet" style="-fx-background-color: #ffc107; -fx-text-fill: black;" />
+            <Button fx:id="supprimerBtn" text="Supprimer Trajet" onAction="#supprimerTrajet" style="-fx-background-color: #dc3545; -fx-text-fill: white;" />
+            <Button fx:id="refreshBtn" text="Actualiser" onAction="#refreshList" style="-fx-background-color: #28a745; -fx-text-fill: white;" />
+        </HBox>
+    </children>
+
+</VBox>

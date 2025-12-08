@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.javafx_project.TrajetController"
+            spacing="10" style="-fx-padding: 20;">
+    <children>
+        <Label text="Créer un Trajet" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
+        <!-- Champs pour le trajet principal -->
+        <HBox spacing="10">
+            <Label text="Date du trajet :" />
+            <DatePicker fx:id="dateTrajetPicker" promptText="Sélectionnez une date" />
+        </HBox>
+        <HBox spacing="10">
+            <Label text="Heure de départ :" />
+            <TextField fx:id="heureDepartField" promptText="Ex: 07:00" />
+        </HBox>
+        <HBox spacing="10">
+            <Label text="Ville de départ :" />
+            <TextField fx:id="villeDepartField" promptText="Ex: Agadir" />
+        </HBox>
+        <HBox spacing="10">
+            <Label text="Ville d'arrivée :" />
+            <TextField fx:id="villeArriveeField" promptText="Ex: Tanger" />
+        </HBox>
+        <HBox spacing="10">
+            <Label text="Heure d'arrivée :" />
+            <TextField fx:id="heureArriveeField" promptText="Ex: 17:00" />
+        </HBox>
+        <HBox spacing="10">
+            <Label text="Véhicule :" />
+            <ComboBox fx:id="vehiculeComboBox" promptText="Sélectionnez un véhicule" />
+        </HBox>
+
+        <!-- Section pour les arrêts intermédiaires -->
+        <Label text="Arrêts intermédiaires :" style="-fx-font-weight: bold;" />
+        <VBox fx:id="arretsContainer" spacing="5" />
+        <Button fx:id="addArretBtn" text="Ajouter un arrêt" onAction="#addArret" />
+        <Label text="Prix entre villes :" style="-fx-font-weight: bold;" />
+        <VBox fx:id="prixContainer" spacing="5" />
+        <Button fx:id="generatePrixBtn" text="Générer les champs de prix" onAction="#generatePrix" />
+        <!-- Boutons d'action -->
+        <HBox spacing="10">
+            <Button fx:id="saveBtn" text="Sauvegarder Trajet" onAction="#saveTrajet" style="-fx-background-color: #28a745; -fx-text-fill: white;" />
+            <Button fx:id="cancelBtn" text="Annuler" onAction="#cancel" style="-fx-background-color: #dc3545; -fx-text-fill: white;" />
+        </HBox>
+    </children>
+
+</VBox>
