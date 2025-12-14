@@ -108,6 +108,20 @@ public class DatabaseConnection {
                 UNIQUE(trajet_id, ville_depart, ville_arrivee)  -- Empêche les doublons pour une paire dans un trajet
             );""";
 
+        String createTableQueryReservation = """
+            CREATE TABLE IF NOT EXISTS Reservation (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                trajet_id INT NOT NULL,
+                ville_depart VARCHAR(100) NOT NULL,
+                ville_arrivee VARCHAR(100) NOT NULL,
+                nom VARCHAR(100) NOT NULL,
+                prenom VARCHAR(100) NOT NULL,
+                cin VARCHAR(20) NOT NULL UNIQUE,
+                place INT NOT NULL,
+                FOREIGN KEY (trajet_id) REFERENCES Trajet(id) ON DELETE CASCADE,
+                UNIQUE(trajet_id, ville_depart, ville_arrivee, place)  -- Place unique par segment
+            );""";
+
 
 
         try (Connection connection = getConnection()) {
@@ -117,6 +131,7 @@ public class DatabaseConnection {
                 executeQuery(connection, createTableQueryTrajet);
                 executeQuery(connection, createTableQueryArret);
                 executeQuery(connection, createTableQueryPrix);
+                executeQuery(connection, createTableQueryReservation);
                 System.out.println("Base de données et tables prêtes !");
 
                 // Ajoute l'utilisateur ADMIN par défaut après la création des tables

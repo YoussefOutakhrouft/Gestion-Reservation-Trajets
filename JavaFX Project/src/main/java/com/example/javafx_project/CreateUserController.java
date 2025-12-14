@@ -58,12 +58,15 @@ public class CreateUserController {
         loadUsers();
     }
 
-    private Callback<TableColumn<User, Void>, TableCell<User, Void>> createActionCellFactory() {
+    public Callback<TableColumn<User, Void>, TableCell<User, Void>> createActionCellFactory() {
         return param -> new TableCell<>() {
             private final Button editBtn = new Button("Modifier");
             private final Button deleteBtn = new Button("Supprimer");
             private final HBox pane = new HBox(editBtn, deleteBtn);
             {
+                editBtn.getStyleClass().add("action-button");
+                deleteBtn.getStyleClass().addAll("action-button", "delete-button");
+
                 editBtn.setOnAction(event -> {
                     User user = getTableView().getItems().get(getIndex());
                     editUser(user);

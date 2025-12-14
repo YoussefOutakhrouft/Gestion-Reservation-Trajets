@@ -138,4 +138,50 @@ public class TrajetDAO {
             e.printStackTrace();
         }
     }
+
+    public List<Trajet> searchTrajets(String villeDepart, String villeArrivee, String date) {
+        List<Trajet> trajets = new ArrayList<>();
+        String query = "SELECT t.*, v.numero_matricule, v.marque, v.nombre_places FROM Trajet t JOIN Vehicule v ON t.vehicule_id = v.id WHERE 1=1";
+        List<Object> params = new ArrayList<>();
+
+        if (villeDepart != null && !villeDepart.trim().isEmpty()) {
+            query += " AND t.ville_depart = ?";
+            params.add(villeDepart);
+        }
+        if (villeArrivee != null && !villeArrivee.trim().isEmpty()) {
+            query += " AND t.ville_arrivee = ?";
+            params.add(villeArrivee);
+        }
+        if (date != null && !date.trim().isEmpty()) {
+            query += " AND t.date_trajet = ?";
+            params.add(Date.valueOf(date));  // Assume date au format YYYY-MM-DD
+        }
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            for (int i = 0; i < params.size(); i++) {
+                stmt.setObject(i + 1, params.get(i));
+            }
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                Trajet trajet = new Trajet();
+                trajet.setId(rs.getInt("id"));
+                trajet.setDateTrajet(rs.getDate("date_trajet").toLocalDate());
+                trajet.setHeureDepart(rs.getString("heure_depart"));
+                trajet.setVilleDepart(rs.getString("ville_depart"));
+                trajet.setVilleArrivee(rs.getString("ville_arrivee"));
+                trajet.setHeureArrivee(rs.getString("heure_arrivee"));
+                trajet.setPlacesRestantes(rs.getInt("places_restantes"));
+                Vehicule vehicule = new Vehicule();
+                vehicule.setId(rs.getInt("vehicule_id"));
+                vehicule.setNumeroMatricule(rs.getString("numero_matricule"));
+                vehicule.setMarque(rs.getString("marque"));
+                vehicule.setNombrePlaces(rs.getInt("nombre_places"));
+                trajet.setVehicule(vehicule);
+                trajets.add(trajet);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return trajets;
+    }
 }

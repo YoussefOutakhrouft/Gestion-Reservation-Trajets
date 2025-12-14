@@ -11,53 +11,62 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 
-<BorderPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx_project.LoginController">
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.Hyperlink?>
+<?import java.lang.String?>
+<BorderPane prefHeight="500.0" prefWidth="700.0" style="-fx-background-color: #f5f5f5;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.javafx_project.LoginController">
 
     <center>
         <StackPane>
-            <GridPane hgap="10" maxWidth="400" prefWidth="400" style="-fx-background-color: white; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 2);" vgap="20">
+            <VBox alignment="CENTER" spacing="20.0">
+                <!-- Login Form -->
+                <GridPane hgap="15" maxWidth="450" prefWidth="450" style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 15, 0, 0, 5);" vgap="15">
+                    <padding>
+                        <Insets bottom="40" left="40" right="40" top="40" />
+                    </padding>
 
-                <padding>
-                    <Insets bottom="40" left="40" right="40" top="40" />
-                </padding>
+                    <!-- Titre -->
+                    <Label style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Agent Login" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                    <!-- Sous-titre -->
+                    <Label style="-fx-font-size: 14px; -fx-text-fill: #777777;" text="Veuillez entrer vos identifiants pour continuer" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                    <!-- Username/Email Label -->
+                    <Label style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #555555;" text="Nom d'utilisateur / Email" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
+                    <!-- Username/Email Field -->
+                    <TextField fx:id="emailField" promptText="Entrez votre adresse email" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #cccccc; -fx-padding: 10;" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
+                    <!-- Password Label -->
+                    <Label style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #555555;" text="Mot de passe" GridPane.halignment="LEFT" GridPane.rowIndex="4" />
+                    <!-- Password Field -->
+                    <PasswordField fx:id="passwordField" promptText="Entrez votre mot de passe" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #cccccc; -fx-padding: 10;" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="5" />
+                    <!-- Bouton Login -->
+                    <Button fx:id="loginButton" onAction="#handleLogin" prefHeight="45.0" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 8; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);" text="Se connecter" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6">
+                        <styleClass>
+                            <String fx:value="login-button" />
+                        </styleClass>
+                    </Button>
+                    <!-- Contraintes de colonnes -->
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="200" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="200" />
+                    </columnConstraints>
 
-                <!-- Titre -->
-                <Label style="-fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Agent Login" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
-
-                <!-- Username/Email Label -->
-                <Label style="-fx-font-size: 14px; -fx-text-fill: #555555;" text="Username / Email" GridPane.halignment="LEFT" GridPane.rowIndex="1" />
-
-                <!-- Username/Email Field -->
-                <TextField fx:id="emailField" promptText="Enter your email address" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #cccccc;" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="2" />
-
-                <!-- Password Label -->
-                <Label style="-fx-font-size: 14px; -fx-text-fill: #555555;" text="Password" GridPane.halignment="LEFT" GridPane.rowIndex="3" />
-
-                <!-- Password Field -->
-                <PasswordField fx:id="passwordField" promptText="Enter your password" style="-fx-background-radius: 5; -fx-border-radius: 5; -fx-border-color: #cccccc;" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="4" />
-
-                <!-- Bouton Login -->
-                <Button fx:id="loginButton" onAction="#handleLogin" prefHeight="36.0" prefWidth="323.0" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-font-size: 16px; -fx-font-weight: bold; -fx-background-radius: 5; -fx-cursor: hand;" text="Login" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="6" />
-
-                <!-- Contraintes de colonnes -->
-                <columnConstraints>
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
-                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10" prefWidth="150" />
-                </columnConstraints>
-
-                <!-- Contraintes de lignes -->
-                <rowConstraints>
-                    <RowConstraints vgrow="SOMETIMES" />
-                    <RowConstraints vgrow="SOMETIMES" />
-                    <RowConstraints prefHeight="40.0" vgrow="SOMETIMES" />
-                    <RowConstraints vgrow="SOMETIMES" />
-                    <RowConstraints prefHeight="40.0" vgrow="SOMETIMES" />
-                    <RowConstraints vgrow="SOMETIMES" />
-                    <RowConstraints prefHeight="45.0" vgrow="SOMETIMES" />
-                </rowConstraints>
-
-            </GridPane>
+                    <!-- Contraintes de lignes -->
+                    <rowConstraints>
+                        <RowConstraints prefHeight="50.0" vgrow="SOMETIMES" />
+                        <RowConstraints prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints prefHeight="25.0" vgrow="SOMETIMES" />
+                        <RowConstraints prefHeight="50.0" vgrow="SOMETIMES" />
+                        <RowConstraints prefHeight="25.0" vgrow="SOMETIMES" />
+                        <RowConstraints prefHeight="50.0" vgrow="SOMETIMES" />
+                        <RowConstraints prefHeight="55.0" vgrow="SOMETIMES" />
+                        <RowConstraints prefHeight="40.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                </GridPane>
+            </VBox>
         </StackPane>
     </center>
+
 
 </BorderPane>

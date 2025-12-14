@@ -12,7 +12,7 @@ public class HelloApplication extends Application {
         new DatabaseConnection().connect();
 
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("Login.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 320, 240);
+        Scene scene = new Scene(fxmlLoader.load(), 1200, 650);
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();

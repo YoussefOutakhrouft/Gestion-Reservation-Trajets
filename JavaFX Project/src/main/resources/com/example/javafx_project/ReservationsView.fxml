@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.example.javafx_project.ReservationsController"
+            spacing="20" style="-fx-padding: 20;">
+    <Label text="Liste des Réservations" style="-fx-font-size: 24px;" />
+    <TableView fx:id="reservationsTable" prefHeight="400">
+        <columns>
+            <TableColumn text="ID" fx:id="idCol" />
+            <TableColumn text="Trajet ID" fx:id="trajetIdCol" />
+            <TableColumn text="Ville Départ" fx:id="villeDepartCol" />
+            <TableColumn text="Ville Arrivée" fx:id="villeArriveeCol" />
+            <TableColumn text="Nom" fx:id="nomCol" />
+            <TableColumn text="Prénom" fx:id="prenomCol" />
+            <TableColumn text="CIN" fx:id="cinCol" />
+            <TableColumn text="Place" fx:id="placeCol" />
+        </columns>
+    </TableView>
+</VBox>

@@ -10,26 +10,61 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.javafx_project.AdminController"
             fx:id="rootPane"
-            prefHeight="400.0" prefWidth="600.0">
-    <!-- Sidebar (Left) -->
+            prefHeight="600.0" prefWidth="900.0"
+            style="-fx-background-color: #f8f9fa;">
+    <!-- Sidebar à gauche -->
     <left>
-        <VBox prefWidth="200.0" style="-fx-background-color: #343a40; -fx-padding: 10;">
+        <VBox prefWidth="250.0" style="-fx-background-color: linear-gradient(to bottom, #2c3e50 0%, #34495e 100%); -fx-padding: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0, 0, 5);">
             <children>
-                <Label style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" text="Admin Panel" />
-                <Button fx:id="gestionUtilisateursBtn" onAction="#showGestionUtilisateurs" prefWidth="180.0" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-margin: 5;" text="Gestion Utilisateurs" />
-                <Button fx:id="gestionTachesBtn" onAction="#showGestionTaches" prefWidth="180.0" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-margin: 5;" text="Gestion Tâches" />
-                <Button fx:id="gestionTrajetsBtn" onAction="#showGestionTrajets" prefWidth="180.0" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-margin: 5;" text="Gestion Trajets" />
-                <Button fx:id="gestionVehiculesBtn" onAction="#showGestionVehicules" prefWidth="180.0" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-margin: 5;" text="Gestion Véhicules" />
-                <Button fx:id="listeTrajetsBtn" onAction="#showListeTrajets" prefWidth="180.0" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-margin: 5;" text="Liste Trajets" />
-                <Button fx:id="logoutBtn" onAction="#logout" prefWidth="180.0" style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-margin: 5;" text="Déconnexion" />
+                <!-- Logo/Avatar en haut -->
+                <HBox alignment="CENTER" spacing="10.0" style="-fx-padding: 10;">
+                    <Label style="-fx-font-size: 40px; -fx-text-fill: white;" text="🏢" />
+                    <Label style="-fx-text-fill: white; -fx-font-size: 20px; -fx-font-weight: bold;" text="Admin Panel" />
+                </HBox>
+
+                <!-- Séparateur -->
+                <Separator style="-fx-background-color: #ecf0f1;" />
+
+                <!-- Boutons avec icônes et effets -->
+                <Button fx:id="gestionUtilisateursBtn" onAction="#showGestionUtilisateurs" prefWidth="210.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-alignment: CENTER_LEFT; -fx-padding: 15; -fx-border-radius: 10; -fx-background-radius: 10;" text="👥 Gestion Utilisateurs">
+                    <styleClass>
+                        <String fx:value="sidebar-button" />
+                    </styleClass>
+                </Button>
+
+                <Button fx:id="gestionTrajetsBtn" onAction="#showGestionTrajets" prefWidth="210.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-alignment: CENTER_LEFT; -fx-padding: 15; -fx-border-radius: 10; -fx-background-radius: 10;" text="🗺 Gestion Trajets">
+                    <styleClass>
+                        <String fx:value="sidebar-button" />
+                    </styleClass>
+                </Button>
+
+                <Button fx:id="gestionVehiculesBtn" onAction="#showGestionVehicules" prefWidth="210.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-alignment: CENTER_LEFT; -fx-padding: 15; -fx-border-radius: 10; -fx-background-radius: 10;" text="🚗 Gestion Véhicules">
+                    <styleClass>
+                        <String fx:value="sidebar-button" />
+                    </styleClass>
+                </Button>
+                <Button fx:id="listeTrajetsBtn" onAction="#showListeTrajets" prefWidth="210.0" style="-fx-background-color: transparent; -fx-text-fill: white; -fx-font-size: 14px; -fx-alignment: CENTER_LEFT; -fx-padding: 15; -fx-border-radius: 10; -fx-background-radius: 10;" text="📜 Liste Trajets">
+                    <styleClass>
+                        <String fx:value="sidebar-button" />
+                    </styleClass>
+                </Button>
+
+                <!-- Séparateur avant déconnexion -->
+                <Separator style="-fx-background-color: #ecf0f1;" />
+
+                <Button fx:id="logoutBtn" onAction="#logout" prefWidth="210.0" style="-fx-background-color: #e74c3c; -fx-text-fill: white; -fx-font-size: 14px; -fx-alignment: CENTER_LEFT; -fx-padding: 15; -fx-border-radius: 10; -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 5, 0, 0, 2);" text="🚪 Déconnexion">
+                    <styleClass>
+                        <String fx:value="logout-button" />
+                    </styleClass>
+                </Button>
             </children>
         </VBox>
     </left>
     <!-- Contenu central (Center) - Dynamique -->
     <center>
-        <VBox alignment="CENTER" spacing="20.0" style="-fx-padding: 20;">
+        <VBox alignment="CENTER" spacing="20.0" style="-fx-padding: 40; -fx-background-color: #ffffff; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 10, 0, 0, 5);">
             <children>
-                <Label fx:id="contentLabel" style="-fx-font-size: 24px; -fx-text-fill: #333333;" text="Bienvenue dans l'interface Admin !" />
+                <Label fx:id="contentLabel" style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #2c3e50;" text="Bienvenue dans l'interface Admin !" />
                 <!-- Ici, tu peux ajouter d'autres éléments ou charger dynamiquement -->
             </children>
         </VBox>

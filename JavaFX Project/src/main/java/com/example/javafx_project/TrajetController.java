@@ -7,6 +7,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -215,6 +216,18 @@ public class TrajetController {
         clearForm();
         trajetToEdit = null;  // Réinitialiser
         isEditing = false;
+    }
+    @FXML
+    private void hoverEffect(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        btn.setScaleX(1.08);
+        btn.setScaleY(1.08);
+    }
+    @FXML
+    private void exitEffect(MouseEvent event) {
+        Button btn = (Button) event.getSource();
+        btn.setScaleX(1.0);
+        btn.setScaleY(1.0);
     }
     @FXML
     private void cancel() {
