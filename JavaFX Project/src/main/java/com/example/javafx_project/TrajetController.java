@@ -4,11 +4,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -16,6 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TrajetController {
+    @FXML
+    private Label headerTitle;
     @FXML
     private DatePicker dateTrajetPicker;
     @FXML
@@ -52,14 +56,28 @@ public class TrajetController {
         VehiculeDAO vehiculeDAO = new VehiculeDAO();
         vehicules.addAll(vehiculeDAO.getAllVehicules());
         vehiculeComboBox.setItems(vehicules);
+        clearEmptyStates();
         if (trajetToEdit != null) {
             isEditing = true;
             prefillFields(trajetToEdit);
+            if (headerTitle != null) {
+                headerTitle.setText("✏️ Modifier le Trajet");
+            }
         }
     }
 
     public static void setTrajetToEdit(Trajet trajet) {
         trajetToEdit = trajet;
+    }
+
+    private void clearEmptyStates() {
+        // Supprimer les labels d'état vide s'ils existent
+        arretsContainer.getChildren().removeIf(node ->
+                node instanceof Label && ((Label) node).getStyleClass().contains("empty-state")
+        );
+        prixContainer.getChildren().removeIf(node ->
+                node instanceof Label && ((Label) node).getStyleClass().contains("empty-state")
+        );
     }
 
     private void prefillFields(Trajet trajet) {
@@ -69,23 +87,55 @@ public class TrajetController {
         villeArriveeField.setText(trajet.getVilleArrivee());
         heureArriveeField.setText(trajet.getHeureArrivee());
         vehiculeComboBox.setValue(trajet.getVehicule());
-        // Pré-remplir les arrêts (simplifié ; vous pouvez charger depuis la base si nécessaire)
-        // Pour cet exemple, on suppose que les arrêts sont vides ou à charger séparément
-        // Ici, on ne pré-remplit pas les arrêts/prix pour simplicité ; étendez si besoin
+        if (trajet.getArrets() != null && !trajet.getArrets().isEmpty()) {
+            clearEmptyStates();
+            for (Arret arret : trajet.getArrets()) {
+                addArretRow(arret.getVille(), arret.getHeureArrivee(),
+                        String.valueOf(arret.getTempsReste()));
+            }
+        }
     }
 
     @FXML
     private void addArret() {
-        // Créer des champs pour un nouvel arrêt
-        HBox arretBox = new HBox(10);
-        TextField villeField = new TextField();
-        villeField.setPromptText("Ville");
-        TextField heureArriveeField = new TextField();
-        heureArriveeField.setPromptText("Heure arrivée (Ex: 10:00)");
-        TextField tempsResteField = new TextField();
-        tempsResteField.setPromptText("Temps de reste (min)");
-        Button removeBtn = new Button("Supprimer");
-        removeBtn.setOnAction(e -> arretsContainer.getChildren().remove(arretBox));
+        clearEmptyStates();
+        addArretRow("", "", "");
+    }
+
+    private void addArretRow(String ville, String heure, String temps) {
+        // Créer une ligne stylisée pour un arrêt
+        HBox arretBox = new HBox(12);
+        arretBox.setAlignment(Pos.CENTER_LEFT);
+        arretBox.getStyleClass().add("arret-row");
+
+        // Champ ville
+        TextField villeField = new TextField(ville);
+        villeField.setPromptText("Nom de la ville");
+        villeField.setPrefWidth(180);
+        HBox.setHgrow(villeField, Priority.ALWAYS);
+
+        // Champ heure d'arrivée
+        TextField heureArriveeField = new TextField(heure);
+        heureArriveeField.setPromptText("HH:MM");
+        heureArriveeField.setPrefWidth(100);
+
+        // Champ temps de reste
+        TextField tempsResteField = new TextField(temps);
+        tempsResteField.setPromptText("Minutes");
+        tempsResteField.setPrefWidth(100);
+
+        // Bouton supprimer
+        Button removeBtn = new Button("🗑️ Supprimer");
+        removeBtn.getStyleClass().add("remove-button");
+        removeBtn.setOnAction(e -> {
+            arretsContainer.getChildren().remove(arretBox);
+            if (arretsContainer.getChildren().isEmpty()) {
+                Label emptyLabel = new Label("Aucun arrêt ajouté. Cliquez sur 'Ajouter un Arrêt' pour commencer.");
+                emptyLabel.getStyleClass().add("empty-state");
+                arretsContainer.getChildren().add(emptyLabel);
+            }
+        });
+
         arretBox.getChildren().addAll(villeField, heureArriveeField, tempsResteField, removeBtn);
         arretsContainer.getChildren().add(arretBox);
     }
@@ -94,17 +144,28 @@ public class TrajetController {
     private void generatePrix() {
         // Collecter toutes les villes : départ + arrêts + arrivée
         List<String> villes = new ArrayList<>();
-        villes.add(villeDepartField.getText());
+        String villeDepart = villeDepartField.getText().trim();
+        String villeArrivee = villeArriveeField.getText().trim();
+        if (villeDepart.isEmpty() || villeArrivee.isEmpty()) {
+            showAlert("Erreur", "Veuillez remplir les villes de départ et d'arrivée avant de générer les prix.", Alert.AlertType.WARNING);
+            return;
+        }
+        villes.add(villeDepart);
         for (var node : arretsContainer.getChildren()) {
-            if (node instanceof HBox) {
+            if (node instanceof HBox && node.getStyleClass().contains("arret-row")) {
                 HBox box = (HBox) node;
                 TextField villeField = (TextField) box.getChildren().get(0);
-                if (!villeField.getText().isEmpty()) {
-                    villes.add(villeField.getText());
+                String ville = villeField.getText().trim();
+                if (!ville.isEmpty()) {
+                    villes.add(ville);
                 }
             }
         }
         villes.add(villeArriveeField.getText());
+        if (villes.size() < 2) {
+            showAlert("Erreur", "Il faut au moins une ville de départ et une ville d'arrivée.", Alert.AlertType.WARNING);
+            return;
+        }
         // Générer les paires uniques et créer des champs de prix
         prixContainer.getChildren().clear();
         prix.clear();
@@ -112,138 +173,170 @@ public class TrajetController {
             for (int j = i + 1; j < villes.size(); j++) {
                 String ville1 = villes.get(i);
                 String ville2 = villes.get(j);
-                HBox prixBox = new HBox(10);
-                Label label = new Label("Prix " + ville1 + " -> " + ville2 + " :");
+
+                HBox prixBox = new HBox(12);
+                prixBox.setAlignment(Pos.CENTER_LEFT);
+                prixBox.getStyleClass().add("prix-row");
+
+                Label label = new Label("💵 " + ville1 + " → " + ville2 + " :");
+                label.setPrefWidth(250);
+
                 TextField prixField = new TextField();
                 prixField.setPromptText("Ex: 50.00");
-                prixBox.getChildren().addAll(label, prixField);
+                prixField.setPrefWidth(120);
+                HBox.setHgrow(prixField, Priority.ALWAYS);
+
+                Label currencyLabel = new Label("DH");
+                currencyLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: #6b7280;");
+
+                prixBox.getChildren().addAll(label, prixField, currencyLabel);
                 prixContainer.getChildren().add(prixBox);
             }
         }
-    }
 
+        showAlert("Succès", "Les champs de prix ont été générés avec succès !", Alert.AlertType.INFORMATION);
+
+    }
     @FXML
     private void saveTrajet() {
         // Valider les champs principaux
-        if (dateTrajetPicker.getValue() == null || heureDepartField.getText().isEmpty() || villeDepartField.getText().isEmpty() ||
-                villeArriveeField.getText().isEmpty() || heureArriveeField.getText().isEmpty() || vehiculeComboBox.getValue() == null) {
-            showAlert("Erreur", "Veuillez remplir tous les champs principaux.");
+        if (dateTrajetPicker.getValue() == null || heureDepartField.getText().trim().isEmpty() ||
+                villeDepartField.getText().trim().isEmpty() || villeArriveeField.getText().trim().isEmpty() ||
+                heureArriveeField.getText().trim().isEmpty() || vehiculeComboBox.getValue() == null) {
+            showAlert("Erreur", "Veuillez remplir tous les champs obligatoires (*)", Alert.AlertType.ERROR);
             return;
         }
+
         // Vérifier la disponibilité du véhicule
         TrajetDAO trajetDAO = new TrajetDAO();
         Integer excludeId = isEditing ? trajetToEdit.getId() : null;
         boolean available = trajetDAO.isVehiculeAvailable(
                 vehiculeComboBox.getValue().getId(),
                 dateTrajetPicker.getValue(),
-                heureDepartField.getText(),
-                heureArriveeField.getText(),
+                heureDepartField.getText().trim(),
+                heureArriveeField.getText().trim(),
                 excludeId
         );
+
         if (!available) {
-            showAlert("Erreur", "Le véhicule n'est pas disponible à ces horaires. Veuillez choisir un autre véhicule ou modifier les horaires.");
+            showAlert("Erreur", "Le véhicule n'est pas disponible à ces horaires. Veuillez choisir un autre véhicule ou modifier les horaires.", Alert.AlertType.ERROR);
             return;
         }
+
         // Collecter les arrêts
         arrets.clear();
         for (var node : arretsContainer.getChildren()) {
-            if (node instanceof HBox) {
+            if (node instanceof HBox && node.getStyleClass().contains("arret-row")) {
                 HBox box = (HBox) node;
                 TextField villeField = (TextField) box.getChildren().get(0);
                 TextField heureArriveeField = (TextField) box.getChildren().get(1);
                 TextField tempsResteField = (TextField) box.getChildren().get(2);
-                if (!villeField.getText().isEmpty() && !heureArriveeField.getText().isEmpty() && !tempsResteField.getText().isEmpty()) {
+
+                String ville = villeField.getText().trim();
+                String heure = heureArriveeField.getText().trim();
+                String tempsStr = tempsResteField.getText().trim();
+
+                if (!ville.isEmpty() && !heure.isEmpty() && !tempsStr.isEmpty()) {
                     try {
-                        int tempsReste = Integer.parseInt(tempsResteField.getText());
-                        arrets.add(new Arret(villeField.getText(), heureArriveeField.getText(), tempsReste));
+                        int tempsReste = Integer.parseInt(tempsStr);
+                        arrets.add(new Arret(ville, heure, tempsReste));
                     } catch (NumberFormatException e) {
-                        showAlert("Erreur", "Le temps de reste doit être un nombre entier.");
+                        showAlert("Erreur", "Le temps de reste doit être un nombre entier (minutes).", Alert.AlertType.ERROR);
                         return;
                     }
                 }
             }
         }
+
+        // Collecter les prix
         prix.clear();
         List<String> villes = new ArrayList<>();
-        villes.add(villeDepartField.getText());
+        villes.add(villeDepartField.getText().trim());
         for (Arret arret : arrets) {
             villes.add(arret.getVille());
         }
-        villes.add(villeArriveeField.getText());
-        int index = 0;
+        villes.add(villeArriveeField.getText().trim());
 
+        int index = 0;
         for (int i = 0; i < villes.size(); i++) {
             for (int j = i + 1; j < villes.size(); j++) {
                 if (index < prixContainer.getChildren().size()) {
                     HBox prixBox = (HBox) prixContainer.getChildren().get(index);
                     TextField prixField = (TextField) prixBox.getChildren().get(1);
-                    if (!prixField.getText().isEmpty()) {
+                    String prixStr = prixField.getText().trim();
+
+                    if (!prixStr.isEmpty()) {
                         try {
-                            double prixValue = Double.parseDouble(prixField.getText());
+                            double prixValue = Double.parseDouble(prixStr);
                             prix.add(new Prix(villes.get(i), villes.get(j), prixValue));
                         } catch (NumberFormatException e) {
-                            showAlert("Erreur", "Le prix doit être un nombre décimal.");
+                            showAlert("Erreur", "Le prix doit être un nombre décimal.", Alert.AlertType.ERROR);
                             return;
                         }
+                    } else {
+                        showAlert("Erreur", "Veuillez remplir tous les champs de prix.", Alert.AlertType.ERROR);
+                        return;
                     }
                     index++;
                 }
             }
         }
+
         // Calculer les places restantes (initialement égal au nombre de places du véhicule)
         int placesRestantes = vehiculeComboBox.getValue().getNombrePlaces();
 
         // Créer et sauvegarder le trajet
         Trajet trajet = new Trajet(
                 dateTrajetPicker.getValue(),
-                heureDepartField.getText(),
-                villeDepartField.getText(),
-                villeArriveeField.getText(),
-                heureArriveeField.getText(),
+                heureDepartField.getText().trim(),
+                villeDepartField.getText().trim(),
+                villeArriveeField.getText().trim(),
+                heureArriveeField.getText().trim(),
                 vehiculeComboBox.getValue(),
                 placesRestantes,
                 arrets,
                 prix
         );
+
         if (isEditing && trajetToEdit != null) {
-            trajet.setId(trajetToEdit.getId());  // Conserver l'ID pour la mise à jour
+            trajet.setId(trajetToEdit.getId());
             trajetDAO.updateTrajet(trajet);
-            showAlert("Succès", "Trajet modifié avec succès !");
+            showAlert("Succès", "Trajet modifié avec succès !", Alert.AlertType.INFORMATION);
         } else {
             trajetDAO.insertTrajet(trajet);
-            showAlert("Succès", "Trajet créé avec succès !");
+            showAlert("Succès", "Trajet créé avec succès !", Alert.AlertType.INFORMATION);
         }
+
         clearForm();
-        trajetToEdit = null;  // Réinitialiser
+        trajetToEdit = null;
         isEditing = false;
-    }
-    @FXML
-    private void hoverEffect(MouseEvent event) {
-        Button btn = (Button) event.getSource();
-        btn.setScaleX(1.08);
-        btn.setScaleY(1.08);
-    }
-    @FXML
-    private void exitEffect(MouseEvent event) {
-        Button btn = (Button) event.getSource();
-        btn.setScaleX(1.0);
-        btn.setScaleY(1.0);
-    }
-    @FXML
-    private void cancel() {
-        // Retourner à la vue admin (ou fermer la vue actuelle)
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("AdminView.fxml"));
-            Parent root = loader.load();
-            Stage stage = (Stage) cancelBtn.getScene().getWindow();
-            stage.setScene(new Scene(root));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+        // Fermer la fenêtre après sauvegarde
+        Stage stage = (Stage) saveBtn.getScene().getWindow();
+        stage.close();
     }
 
-    private void showAlert(String title, String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+    @FXML
+    private void cancel() {
+        // Confirmation avant d'annuler
+        Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+        confirmation.setTitle("Confirmation");
+        confirmation.setHeaderText("Annuler les modifications ?");
+        confirmation.setContentText("Êtes-vous sûr de vouloir annuler ? Toutes les modifications seront perdues.");
+
+        confirmation.showAndWait().ifPresent(response -> {
+            if (response == ButtonType.OK) {
+                clearForm();
+                trajetToEdit = null;
+                isEditing = false;
+                Stage stage = (Stage) cancelBtn.getScene().getWindow();
+                stage.close();
+            }
+        });
+    }
+
+    private void showAlert(String title, String message, Alert.AlertType type) {
+        Alert alert = new Alert(type);
         alert.setTitle(title);
         alert.setHeaderText(null);
         alert.setContentText(message);
@@ -258,6 +351,17 @@ public class TrajetController {
         heureArriveeField.clear();
         vehiculeComboBox.setValue(null);
         arretsContainer.getChildren().clear();
+        prixContainer.getChildren().clear();
         arrets.clear();
+        prix.clear();
+
+        // Rétablir les états vides
+        Label arretEmptyLabel = new Label("Aucun arrêt ajouté. Cliquez sur 'Ajouter un Arrêt' pour commencer.");
+        arretEmptyLabel.getStyleClass().add("empty-state");
+        arretsContainer.getChildren().add(arretEmptyLabel);
+
+        Label prixEmptyLabel = new Label("Cliquez sur 'Générer les Prix' après avoir ajouté les villes.");
+        prixEmptyLabel.getStyleClass().add("empty-state");
+        prixContainer.getChildren().add(prixEmptyLabel);
     }
 }

@@ -122,8 +122,6 @@ public class DatabaseConnection {
                 UNIQUE(trajet_id, ville_depart, ville_arrivee, place)  -- Place unique par segment
             );""";
 
-
-
         try (Connection connection = getConnection()) {
             if (connection != null) {
                 executeQuery(connection, createTableQueryUtilisateur);

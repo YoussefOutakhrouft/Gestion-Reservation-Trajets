@@ -184,4 +184,33 @@ public class TrajetDAO {
         }
         return trajets;
     }
+
+    public Trajet getTrajetById(int id) {
+        String query = "SELECT t.*, v.numero_matricule, v.marque, v.nombre_places FROM Trajet t JOIN Vehicule v ON t.vehicule_id = v.id WHERE t.id = ?";
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                Trajet trajet = new Trajet();
+                trajet.setId(rs.getInt("id"));
+                trajet.setDateTrajet(rs.getDate("date_trajet").toLocalDate());
+                trajet.setHeureDepart(rs.getString("heure_depart"));
+                trajet.setVilleDepart(rs.getString("ville_depart"));
+                trajet.setVilleArrivee(rs.getString("ville_arrivee"));
+                trajet.setHeureArrivee(rs.getString("heure_arrivee"));
+                trajet.setPlacesRestantes(rs.getInt("places_restantes"));
+                Vehicule vehicule = new Vehicule();
+                vehicule.setId(rs.getInt("vehicule_id"));
+                vehicule.setNumeroMatricule(rs.getString("numero_matricule"));
+                vehicule.setMarque(rs.getString("marque"));
+                vehicule.setNombrePlaces(rs.getInt("nombre_places"));
+                trajet.setVehicule(vehicule);
+                return trajet;
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;  // Retourner null si le trajet n'est pas trouvé
+    }
 }

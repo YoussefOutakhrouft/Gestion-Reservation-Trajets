@@ -13,94 +13,102 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.javafx_project.CreateUserController"
             fitToWidth="true"
-            hbarPolicy="AS_NEEDED"
+            hbarPolicy="NEVER"
             vbarPolicy="AS_NEEDED"
-            style="-fx-background-color: linear-gradient(to bottom, #e3f2fd 0%, #bbdefb 100%); -fx-background-radius: 20; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0, 0, 10);">
+            stylesheets="@styles/user.css"
+            styleClass="main-scroll">
 
     <content>
-        <VBox alignment="CENTER" spacing="30.0"
-              prefWidth="900.0"
-              style="-fx-padding: 40;">
+        <VBox alignment="TOP_CENTER" spacing="35.0" styleClass="main-container">
 
-            <children>
-                <!-- Titre principal avec icône -->
-                <HBox alignment="CENTER" spacing="15.0">
-                    <Label style="-fx-font-size: 30px; -fx-text-fill: #1976d2; -fx-font-weight: bold;" text="👥" />
-                    <Label style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #1976d2;" text="Gestion des Utilisateurs" />
+            <!-- En-tête avec dégradé -->
+            <VBox styleClass="header-section" spacing="10">
+                <HBox alignment="CENTER" spacing="12">
+                    <Label styleClass="header-icon" text="👥" />
+                    <Label styleClass="header-title" text="Gestion des Utilisateurs" />
+                </HBox>
+                <Label styleClass="header-subtitle" text="Gérez vos utilisateurs en toute simplicité" />
+            </VBox>
+
+            <!-- Section TableView -->
+            <VBox styleClass="content-card" spacing="20">
+                <HBox alignment="CENTER_LEFT" spacing="10" style="-fx-padding: 0 0 10 0;">
+                    <Label styleClass="section-title" text="📋 Liste des Utilisateurs" />
+                    <Region HBox.hgrow="ALWAYS" />
                 </HBox>
 
-                <!-- Séparateur -->
-                <Separator style="-fx-background-color: #90caf9;" />
+                <TableView fx:id="usersTable" styleClass="modern-table">
+                    <columns>
+                        <TableColumn fx:id="idColumn" prefWidth="80" styleClass="table-column-header" text="ID">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="id" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="nomColumn" prefWidth="140" styleClass="table-column-header" text="Nom">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="nom" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="prenomColumn" prefWidth="140" styleClass="table-column-header" text="Prénom">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="prenom" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="emailColumn" prefWidth="220" styleClass="table-column-header" text="Email">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="email" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="roleColumn" prefWidth="120" styleClass="table-column-header" text="Rôle">
+                            <cellValueFactory>
+                                <PropertyValueFactory property="role" />
+                            </cellValueFactory>
+                        </TableColumn>
+                        <TableColumn fx:id="actionColumn" prefWidth="180" styleClass="table-column-header" text="Actions" />
+                    </columns>
+                </TableView>
+            </VBox>
 
-                <!-- TableView stylisée avec scrolling interne -->
-                <VBox style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 5); -fx-padding: 20;">
-                    <TableView fx:id="usersTable" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: transparent; -fx-border-radius: 10; -fx-background-radius: 10;">
-                        <columns>
-                            <TableColumn fx:id="idColumn" prefWidth="60.0" style="-fx-font-weight: bold; -fx-text-fill: #424242;" text="ID">
-                                <cellValueFactory>
-                                    <PropertyValueFactory property="id" />
-                                </cellValueFactory>
-                            </TableColumn>
-                            <TableColumn fx:id="nomColumn" prefWidth="120.0" style="-fx-font-weight: bold; -fx-text-fill: #424242;" text="Nom">
-                                <cellValueFactory>
-                                    <PropertyValueFactory property="nom" />
-                                </cellValueFactory>
-                            </TableColumn>
-                            <TableColumn fx:id="prenomColumn" prefWidth="120.0" style="-fx-font-weight: bold; -fx-text-fill: #424242;" text="Prénom">
-                                <cellValueFactory>
-                                    <PropertyValueFactory property="prenom" />
-                                </cellValueFactory>
-                            </TableColumn>
-                            <TableColumn fx:id="emailColumn" prefWidth="180.0" style="-fx-font-weight: bold; -fx-text-fill: #424242;" text="Email">
-                                <cellValueFactory>
-                                    <PropertyValueFactory property="email" />
-                                </cellValueFactory>
-                            </TableColumn>
-                            <TableColumn fx:id="roleColumn" prefWidth="120.0" style="-fx-font-weight: bold; -fx-text-fill: #424242;" text="Rôle">
-                                <cellValueFactory>
-                                    <PropertyValueFactory property="role" />
-                                </cellValueFactory>
-                            </TableColumn>
-                            <TableColumn fx:id="actionColumn" prefWidth="160.0" style="-fx-font-weight: bold; -fx-text-fill: #424242;" text="Actions">
-                                <!-- Supprimé : <cellFactory><javafx.util.Callback factory="#createActionCell" /></cellFactory> -->
-                            </TableColumn>
-                        </columns>
-                        <styleClass>
-                            <String fx:value="modern-table" />
-                        </styleClass>
-                    </TableView>
-                </VBox>
-
-                <!-- Sous-titre avec icône -->
-                <HBox alignment="CENTER" spacing="15.0">
-                    <Label style="-fx-font-size: 24px; -fx-text-fill: #388e3c; -fx-font-weight: bold;" text="✏" />
-                    <Label style="-fx-font-size: 22px; -fx-font-weight: bold; -fx-text-fill: #388e3c;" text="Créer ou Modifier un Utilisateur" />
+            <!-- Section Formulaire -->
+            <VBox styleClass="content-card" spacing="25">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label styleClass="section-title" text="✏️ Formulaire Utilisateur" />
                 </HBox>
 
-                <!-- Formulaire dans une boîte stylisée -->
-                <VBox style="-fx-background-color: white; -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.2), 10, 0, 0, 5); -fx-padding: 30;">
-                    <GridPane hgap="20" vgap="20">
-                        <columnConstraints>
-                            <ColumnConstraints minWidth="120" prefWidth="120" />
-                            <ColumnConstraints minWidth="250" prefWidth="250" />
-                        </columnConstraints>
-                        <rowConstraints>
-                            <RowConstraints minHeight="40" prefHeight="40" />
-                            <RowConstraints minHeight="40" prefHeight="40" />
-                            <RowConstraints minHeight="40" prefHeight="40" />
-                            <RowConstraints minHeight="40" prefHeight="40" />
-                            <RowConstraints minHeight="40" prefHeight="40" />
-                        </rowConstraints>
-                        <Label style="-fx-font-size: 16px; -fx-text-fill: #424242; -fx-font-weight: bold;" text="Nom :" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                        <TextField fx:id="nomField" promptText="Entrez le nom" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #90caf9; -fx-padding: 10;" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                        <Label style="-fx-font-size: 16px; -fx-text-fill: #424242; -fx-font-weight: bold;" text="Prénom :" GridPane.columnIndex="0" GridPane.rowIndex="1" />
-                        <TextField fx:id="prenomField" promptText="Entrez le prénom" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #90caf9; -fx-padding: 10;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                        <Label style="-fx-font-size: 16px; -fx-text-fill: #424242; -fx-font-weight: bold;" text="Email :" GridPane.columnIndex="0" GridPane.rowIndex="2" />
-                        <TextField fx:id="emailField" promptText="Entrez l'email" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #90caf9; -fx-padding: 10;" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                        <Label style="-fx-font-size: 16px; -fx-text-fill: #424242; -fx-font-weight: bold;" text="Mot de Passe :" GridPane.columnIndex="0" GridPane.rowIndex="3" />
-                        <PasswordField fx:id="passwordField" promptText="Entrez un nouveau mot de passe (laisser vide pour garder l'ancien)" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #90caf9; -fx-padding: 10;" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                        <Label style="-fx-font-size: 16px; -fx-text-fill: #424242; -fx-font-weight: bold;" text="Rôle :" GridPane.columnIndex="0" GridPane.rowIndex="4" />
-                        <ComboBox fx:id="roleComboBox" prefWidth="250.0" style="-fx-background-radius: 10; -fx-border-radius: 10; -fx-border-color: #90caf9; -fx-padding: 5;" GridPane.columnIndex="1" GridPane.rowIndex="4">
+                <GridPane hgap="25" vgap="20" styleClass="form-grid">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="140" prefWidth="140" />
+                        <ColumnConstraints minWidth="280" prefWidth="280" hgrow="ALWAYS" />
+                    </columnConstraints>
+
+                    <!-- Nom -->
+                    <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2">
+                        <Label styleClass="field-label" text="Nom *" />
+                        <TextField fx:id="nomField" promptText="Entrez le nom de famille" styleClass="modern-textfield" />
+                    </VBox>
+
+                    <!-- Prénom -->
+                    <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2">
+                        <Label styleClass="field-label" text="Prénom *" />
+                        <TextField fx:id="prenomField" promptText="Entrez le prénom" styleClass="modern-textfield" />
+                    </VBox>
+
+                    <!-- Email -->
+                    <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2">
+                        <Label styleClass="field-label" text="Email *" />
+                        <TextField fx:id="emailField" promptText="exemple@domaine.com" styleClass="modern-textfield" />
+                    </VBox>
+
+                    <!-- Mot de passe -->
+                    <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2">
+                        <Label styleClass="field-label" text="Mot de Passe" />
+                        <PasswordField fx:id="passwordField" promptText="Laisser vide pour conserver l'actuel" styleClass="modern-textfield" />
+                    </VBox>
+
+                    <!-- Rôle -->
+                    <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="2">
+                        <Label styleClass="field-label" text="Rôle *" />
+                        <ComboBox fx:id="roleComboBox" maxWidth="Infinity" styleClass="modern-combobox">
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
                                     <String fx:value="ADMIN" />
@@ -108,19 +116,23 @@
                                 </FXCollections>
                             </items>
                         </ComboBox>
-                    </GridPane>
+                    </VBox>
+                </GridPane>
+
+                <!-- Message et Bouton -->
+                <VBox spacing="15" alignment="CENTER">
+                    <Label fx:id="messageLabel" styleClass="message-label" text="" wrapText="true" />
+
+                    <HBox spacing="15" alignment="CENTER">
+                        <Button fx:id="createUserBtn" onAction="#createUser" styleClass="primary-button" text="✅ Créer Utilisateur" />
+                        <Button onAction="#clearForm" styleClass="secondary-button" text="🔄 Réinitialiser" />
+                    </HBox>
                 </VBox>
+            </VBox>
 
-                <!-- Bouton stylisé -->
-                <Button fx:id="createUserBtn" onAction="#createUser" prefHeight="50.0" prefWidth="200.0" style="-fx-background-color: #4caf50; -fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold; -fx-background-radius: 25; -fx-cursor: hand; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0, 0, 3);" text="✅ Créer Utilisateur">
-                    <styleClass>
-                        <String fx:value="create-button" />
-                    </styleClass>
-                </Button>
+            <!-- Footer -->
+            <Label styleClass="footer-text" text="Développé avec ❤️ pour une meilleure gestion" />
 
-                <!-- Label de message -->
-                <Label fx:id="messageLabel" style="-fx-text-fill: #d32f2f; -fx-font-size: 14px; -fx-font-weight: bold;" text="" />
-            </children>
         </VBox>
     </content>
 </ScrollPane>

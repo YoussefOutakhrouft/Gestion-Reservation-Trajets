@@ -2,77 +2,154 @@
 
 <?import java.lang.*?>
 <?import java.util.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane xmlns="http://javafx.com/javafx"
+<ScrollPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.javafx_project.TrajetController"
-            style="-fx-background-color: #e3f2fd; -fx-padding: 25;">
-    <top>
-        <VBox alignment="CENTER" style="-fx-padding: 15; -fx-background-color: linear-gradient(to right, #1976D2, #42A5F5); -fx-background-radius: 15; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 8, 0, 0, 2);">
-            <Label text="🚐 Créer un Nouveau Trajet" style="-fx-font-size: 26px; -fx-font-weight: bold; -fx-text-fill: white; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.5), 6, 0, 0, 1);" />
-        </VBox>
-    </top>
-    <!-- Formulaire au centre avec scroll -->
-    <center>
-        <ScrollPane fitToWidth="true" style="-fx-background: transparent; -fx-border-color: transparent; -fx-background-radius: 10;">
-            <VBox spacing="25" style="-fx-padding: 25; -fx-background-color: rgba(255,255,255,0.9); -fx-background-radius: 10; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 1);">
+            fitToWidth="true"
+            hbarPolicy="NEVER"
+            vbarPolicy="AS_NEEDED"
+            stylesheets="@styles/trajet.css"
+            styleClass="main-scroll">
 
-                <!-- Section Trajet Principal -->
-                <TitledPane text="📅 Détails du Trajet" expanded="true" collapsible="false" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-base: #bbdefb; -fx-border-radius: 10; -fx-background-radius: 10;">
-                    <GridPane hgap="20" vgap="15" style="-fx-padding: 20;">
-                        <columnConstraints>
-                            <ColumnConstraints minWidth="160" prefWidth="160" />
-                            <ColumnConstraints minWidth="220" prefWidth="220" />
-                        </columnConstraints>
+    <content>
+        <VBox alignment="TOP_CENTER" spacing="30.0" styleClass="main-container">
 
-                        <Label text="📆 Date du trajet :" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-font-weight: bold; -fx-text-fill: #1976D2;" />
-                        <DatePicker fx:id="dateTrajetPicker" promptText="Sélectionnez une date" GridPane.columnIndex="1" GridPane.rowIndex="0" style="-fx-border-radius: 8; -fx-background-radius: 8; -fx-border-color: #90caf9; -fx-background-color: #f3f9ff;" />
-
-                        <Label text="⏰ Heure de départ :" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-font-weight: bold; -fx-text-fill: #1976D2;" />
-                        <TextField fx:id="heureDepartField" promptText="Ex: 07:00" GridPane.columnIndex="1" GridPane.rowIndex="1" style="-fx-border-radius: 8; -fx-background-radius: 8; -fx-border-color: #90caf9; -fx-background-color: #f3f9ff;">
-                            <tooltip><Tooltip text="Format: HH:MM (ex: 07:00)" /></tooltip>
-                        </TextField>
-                        <Label text="🏙 Ville de départ :" GridPane.columnIndex="0" GridPane.rowIndex="2" style="-fx-font-weight: bold; -fx-text-fill: #1976D2;" />
-                        <TextField fx:id="villeDepartField" promptText="Ex: Agadir" GridPane.columnIndex="1" GridPane.rowIndex="2" style="-fx-border-radius: 8; -fx-background-radius: 8; -fx-border-color: #90caf9; -fx-background-color: #f3f9ff;" />
-
-                        <Label text="🏙 Ville d'arrivée :" GridPane.columnIndex="0" GridPane.rowIndex="3" style="-fx-font-weight: bold; -fx-text-fill: #1976D2;" />
-                        <TextField fx:id="villeArriveeField" promptText="Ex: Tanger" GridPane.columnIndex="1" GridPane.rowIndex="3" style="-fx-border-radius: 8; -fx-background-radius: 8; -fx-border-color: #90caf9; -fx-background-color: #f3f9ff;" />
-
-                        <Label text="⏰ Heure d'arrivée :" GridPane.columnIndex="0" GridPane.rowIndex="4" style="-fx-font-weight: bold; -fx-text-fill: #1976D2;" />
-                        <TextField fx:id="heureArriveeField" promptText="Ex: 17:00" GridPane.columnIndex="1" GridPane.rowIndex="4" style="-fx-border-radius: 8; -fx-background-radius: 8; -fx-border-color: #90caf9; -fx-background-color: #f3f9ff;">
-                            <tooltip><Tooltip text="Format: HH:MM (ex: 17:00)" /></tooltip>
-                        </TextField>
-
-                        <Label text="🚗 Véhicule :" GridPane.columnIndex="0" GridPane.rowIndex="5" style="-fx-font-weight: bold; -fx-text-fill: #1976D2;" />
-                        <ComboBox fx:id="vehiculeComboBox" promptText="Sélectionnez un véhicule" GridPane.columnIndex="1" GridPane.rowIndex="5" style="-fx-border-radius: 8; -fx-background-radius: 8; -fx-border-color: #90caf9; -fx-background-color: #f3f9ff;" />
-                    </GridPane>
-                </TitledPane>
-                <!-- Section Arrêts Intermédiaires -->
-                <TitledPane text="🛑 Arrêts Intermédiaires" expanded="true" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-base: #fff8e1; -fx-border-radius: 10; -fx-background-radius: 10;">
-                    <VBox spacing="15" style="-fx-padding: 20;">
-                        <VBox fx:id="arretsContainer" spacing="8" />
-                        <Button fx:id="addArretBtn" text="➕ Ajouter un Arrêt" onAction="#addArret" style="-fx-background-color: #FF8F00; -fx-text-fill: white; -fx-border-radius: 8; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0, 0, 1); -fx-font-size: 14px; -fx-padding: 8 16;" onMouseEntered="#hoverEffect" onMouseExited="#exitEffect" />
-                    </VBox>
-                </TitledPane>
-
-                <!-- Section Prix -->
-                <TitledPane text="💰 Prix entre Villes" expanded="true" style="-fx-font-size: 18px; -fx-font-weight: bold; -fx-base: #fce4ec; -fx-border-radius: 10; -fx-background-radius: 10;">
-                    <VBox spacing="15" style="-fx-padding: 20;">
-                        <VBox fx:id="prixContainer" spacing="8" />
-                        <Button fx:id="generatePrixBtn" text="🔄 Générer les Champs de Prix" onAction="#generatePrix" style="-fx-background-color: #D81B60; -fx-text-fill: white; -fx-border-radius: 8; -fx-background-radius: 8; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 4, 0, 0, 1); -fx-font-size: 14px; -fx-padding: 8 16;" onMouseEntered="#hoverEffect" onMouseExited="#exitEffect" />
-                    </VBox>
-                </TitledPane>
+            <!-- En-tête avec dégradé -->
+            <VBox styleClass="header-section" spacing="10">
+                <HBox alignment="CENTER" spacing="12">
+                    <Label styleClass="header-icon" text="🚐" />
+                    <Label fx:id="headerTitle" styleClass="header-title" text="Créer un Nouveau Trajet" />
+                </HBox>
+                <Label styleClass="header-subtitle" text="Remplissez tous les détails pour créer un trajet complet" />
             </VBox>
-        </ScrollPane>
-    </center>
-    <bottom>
-        <HBox spacing="25" alignment="CENTER" style="-fx-padding: 25;">
-            <Button fx:id="saveBtn" text="💾 Sauvegarder Trajet" onAction="#saveTrajet" style="-fx-background-color: #1976D2; -fx-text-fill: white; -fx-font-size: 16px; -fx-border-radius: 12; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 6, 0, 0, 2); -fx-padding: 12 24;" onMouseEntered="#hoverEffect" onMouseExited="#exitEffect" />
-            <Button fx:id="cancelBtn" text="❌ Annuler" onAction="#cancel" style="-fx-background-color: #D32F2F; -fx-text-fill: white; -fx-font-size: 16px; -fx-border-radius: 12; -fx-background-radius: 12; -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 6, 0, 0, 2); -fx-padding: 12 24;" onMouseEntered="#hoverEffect" onMouseExited="#exitEffect" />
-        </HBox>
-    </bottom>
 
-</BorderPane>
+            <!-- Section Détails du Trajet -->
+            <VBox styleClass="content-card" spacing="20">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label styleClass="section-title" text="📅 Détails du Trajet" />
+                </HBox>
+
+                <GridPane hgap="25" vgap="20" styleClass="form-grid">
+                    <columnConstraints>
+                        <ColumnConstraints minWidth="180" prefWidth="180" />
+                        <ColumnConstraints minWidth="280" prefWidth="280" hgrow="ALWAYS" />
+                    </columnConstraints>
+
+                    <!-- Date du trajet -->
+                    <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2">
+                        <Label styleClass="field-label" text="📆 Date du trajet *" />
+                        <DatePicker fx:id="dateTrajetPicker" promptText="Sélectionnez une date" styleClass="modern-datepicker" maxWidth="Infinity" />
+                    </VBox>
+
+                    <!-- Heure de départ -->
+                    <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="1" GridPane.columnSpan="2">
+                        <Label styleClass="field-label" text="⏰ Heure de départ *" />
+                        <TextField fx:id="heureDepartField" promptText="Ex: 07:00" styleClass="modern-textfield">
+                            <tooltip>
+                                <Tooltip text="Format: HH:MM (ex: 07:00)" />
+                            </tooltip>
+                        </TextField>
+                    </VBox>
+
+                    <!-- Ville de départ -->
+                    <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2">
+                        <Label styleClass="field-label" text="🏙️ Ville de départ *" />
+                        <TextField fx:id="villeDepartField" promptText="Ex: Agadir" styleClass="modern-textfield" />
+                    </VBox>
+
+                    <!-- Ville d'arrivée -->
+                    <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2">
+                        <Label styleClass="field-label" text="🏙️ Ville d'arrivée *" />
+                        <TextField fx:id="villeArriveeField" promptText="Ex: Tanger" styleClass="modern-textfield" />
+                    </VBox>
+
+                    <!-- Heure d'arrivée -->
+                    <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="4" GridPane.columnSpan="2">
+                        <Label styleClass="field-label" text="⏰ Heure d'arrivée *" />
+                        <TextField fx:id="heureArriveeField" promptText="Ex: 17:00" styleClass="modern-textfield">
+                            <tooltip>
+                                <Tooltip text="Format: HH:MM (ex: 17:00)" />
+                            </tooltip>
+                        </TextField>
+                    </VBox>
+
+                    <!-- Véhicule -->
+                    <VBox spacing="8" GridPane.columnIndex="0" GridPane.rowIndex="5" GridPane.columnSpan="2">
+                        <Label styleClass="field-label" text="🚗 Véhicule *" />
+                        <ComboBox fx:id="vehiculeComboBox" promptText="Sélectionnez un véhicule" styleClass="modern-combobox" maxWidth="Infinity" />
+                    </VBox>
+                </GridPane>
+            </VBox>
+
+            <!-- Section Arrêts Intermédiaires -->
+            <VBox styleClass="content-card section-arrets" spacing="20">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label styleClass="section-title" text="🛑 Arrêts Intermédiaires" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button fx:id="addArretBtn" onAction="#addArret" styleClass="add-button">
+                        <graphic>
+                            <HBox spacing="6" alignment="CENTER">
+                                <Label text="➕" style="-fx-font-size: 14px;" />
+                                <Label text="Ajouter un Arrêt" />
+                            </HBox>
+                        </graphic>
+                    </Button>
+                </HBox>
+
+                <VBox fx:id="arretsContainer" spacing="12" styleClass="arrets-container">
+                    <Label styleClass="empty-state" text="Aucun arrêt ajouté. Cliquez sur 'Ajouter un Arrêt' pour commencer." />
+                </VBox>
+            </VBox>
+
+            <!-- Section Prix -->
+            <VBox styleClass="content-card section-prix" spacing="20">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label styleClass="section-title" text="💰 Prix entre Villes" />
+                    <Region HBox.hgrow="ALWAYS" />
+                    <Button fx:id="generatePrixBtn" onAction="#generatePrix" styleClass="generate-button">
+                        <graphic>
+                            <HBox spacing="6" alignment="CENTER">
+                                <Label text="🔄" style="-fx-font-size: 14px;" />
+                                <Label text="Générer les Prix" />
+                            </HBox>
+                        </graphic>
+                    </Button>
+                </HBox>
+
+                <VBox fx:id="prixContainer" spacing="12" styleClass="prix-container">
+                    <Label styleClass="empty-state" text="Cliquez sur 'Générer les Prix' après avoir ajouté les villes." />
+                </VBox>
+            </VBox>
+
+            <!-- Boutons d'action -->
+            <HBox spacing="20" alignment="CENTER" styleClass="action-buttons-bar">
+                <Button fx:id="saveBtn" onAction="#saveTrajet" styleClass="save-button">
+                    <graphic>
+                        <HBox spacing="8" alignment="CENTER">
+                            <Label text="💾" style="-fx-font-size: 18px;" />
+                            <Label text="Sauvegarder Trajet" />
+                        </HBox>
+                    </graphic>
+                </Button>
+
+                <Button fx:id="cancelBtn" onAction="#cancel" styleClass="cancel-button">
+                    <graphic>
+                        <HBox spacing="8" alignment="CENTER">
+                            <Label text="❌" style="-fx-font-size: 18px;" />
+                            <Label text="Annuler" />
+                        </HBox>
+                    </graphic>
+                </Button>
+            </HBox>
+
+            <!-- Footer -->
+            <Label styleClass="footer-text" text="* Champs obligatoires" />
+
+        </VBox>
+    </content>
+</ScrollPane>

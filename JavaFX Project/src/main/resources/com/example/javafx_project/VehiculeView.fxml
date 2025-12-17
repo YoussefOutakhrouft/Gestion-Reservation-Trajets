@@ -2,34 +2,133 @@
 
 <?import java.lang.*?>
 <?import java.util.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx"
+<ScrollPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.javafx_project.VehiculeController"
-            spacing="10" style="-fx-padding: 20;">
-    <children>
-        <Label text="Créer un Véhicule" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
-        <!-- Champs pour le véhicule -->
-        <HBox spacing="10">
-            <Label text="Numéro de matricule :" />
-            <TextField fx:id="numeroMatriculeField" promptText="Ex: ABC-123" />
-        </HBox>
-        <HBox spacing="10">
-            <Label text="Marque :" />
-            <TextField fx:id="marqueField" promptText="Ex: Renault" />
-        </HBox>
-        <HBox spacing="10">
-            <Label text="Nombre de places :" />
-            <TextField fx:id="nombrePlacesField" promptText="Ex: 50" />
-        </HBox>
-        <!-- Boutons d'action -->
-        <HBox spacing="10">
-            <Button fx:id="saveBtn" text="Sauvegarder Véhicule" onAction="#saveVehicule" style="-fx-background-color: #28a745; -fx-text-fill: white;" />
-            <Button fx:id="cancelBtn" text="Annuler" onAction="#cancel" style="-fx-background-color: #dc3545; -fx-text-fill: white;" />
-        </HBox>
-    </children>
+            fitToWidth="true"
+            hbarPolicy="NEVER"
+            vbarPolicy="AS_NEEDED"
+            stylesheets="@styles/vehicule.css"
+            styleClass="main-scroll">
 
-</VBox>
+    <content>
+        <VBox alignment="TOP_CENTER" spacing="35.0" styleClass="main-container">
+
+            <!-- En-tête avec dégradé -->
+            <VBox styleClass="header-section" spacing="10">
+                <HBox alignment="CENTER" spacing="12">
+                    <Label styleClass="header-icon" text="🚗" />
+                    <Label styleClass="header-title" text="Ajouter un Véhicule" />
+                </HBox>
+                <Label styleClass="header-subtitle" text="Enregistrez un nouveau véhicule dans votre flotte" />
+            </VBox>
+
+            <!-- Carte de formulaire -->
+            <VBox styleClass="content-card" spacing="30">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label styleClass="section-title" text="📋 Informations du Véhicule" />
+                </HBox>
+
+                <!-- Formulaire -->
+                <VBox spacing="25" styleClass="form-container">
+
+                    <!-- Numéro de matricule -->
+                    <VBox spacing="8">
+                        <Label styleClass="field-label" text="🔢 Numéro de Matricule *" />
+                        <TextField fx:id="numeroMatriculeField"
+                                   promptText="Ex: ABC-123 ou 12345-A-67"
+                                   styleClass="modern-textfield">
+                            <tooltip>
+                                <Tooltip text="Format: ABC-123 ou 12345-A-67" />
+                            </tooltip>
+                        </TextField>
+                        <Label styleClass="field-hint" text="Le numéro d'immatriculation unique du véhicule" />
+                    </VBox>
+
+                    <!-- Marque -->
+                    <VBox spacing="8">
+                        <Label styleClass="field-label" text="🏷️ Marque *" />
+                        <TextField fx:id="marqueField"
+                                   promptText="Ex: Mercedes, Renault, Volvo"
+                                   styleClass="modern-textfield" />
+                        <Label styleClass="field-hint" text="La marque ou le fabricant du véhicule" />
+                    </VBox>
+
+                    <!-- Nombre de places -->
+                    <VBox spacing="8">
+                        <Label styleClass="field-label" text="🪑 Nombre de Places *" />
+                        <TextField fx:id="nombrePlacesField"
+                                   promptText="Ex: 50"
+                                   styleClass="modern-textfield">
+                            <tooltip>
+                                <Tooltip text="Nombre total de places assises disponibles" />
+                            </tooltip>
+                        </TextField>
+                        <Label styleClass="field-hint" text="Capacité totale de passagers du véhicule" />
+                    </VBox>
+
+                </VBox>
+
+                <!-- Séparateur -->
+                <Separator styleClass="form-separator" />
+
+                <!-- Boutons d'action -->
+                <HBox spacing="20" alignment="CENTER" styleClass="action-buttons-bar">
+                    <Button fx:id="saveBtn" onAction="#saveVehicule" styleClass="save-button">
+                        <graphic>
+                            <HBox spacing="8" alignment="CENTER">
+                                <Label text="💾" style="-fx-font-size: 18px;" />
+                                <Label text="Sauvegarder" />
+                            </HBox>
+                        </graphic>
+                    </Button>
+
+                    <Button fx:id="cancelBtn" onAction="#cancel" styleClass="cancel-button">
+                        <graphic>
+                            <HBox spacing="8" alignment="CENTER">
+                                <Label text="❌" style="-fx-font-size: 18px;" />
+                                <Label text="Annuler" />
+                            </HBox>
+                        </graphic>
+                    </Button>
+                </HBox>
+
+                <!-- Message d'information -->
+                <HBox styleClass="info-box" spacing="12" alignment="CENTER_LEFT">
+                    <Label text="💡" style="-fx-font-size: 24px;" />
+                    <VBox spacing="5">
+                        <Label styleClass="info-title" text="Informations importantes" />
+                        <Label styleClass="info-text" text="• Le numéro de matricule doit être unique" wrapText="true" />
+                        <Label styleClass="info-text" text="• Le nombre de places doit être un nombre entier positif" wrapText="true" />
+                        <Label styleClass="info-text" text="• Tous les champs marqués d'un * sont obligatoires" wrapText="true" />
+                    </VBox>
+                </HBox>
+
+            </VBox>
+
+            <!-- Section Statistiques (optionnel) -->
+            <HBox spacing="20" alignment="CENTER" styleClass="stats-preview">
+                <VBox alignment="CENTER" spacing="8" styleClass="stat-preview-card">
+                    <Label text="🚌" style="-fx-font-size: 32px;" />
+                    <Label styleClass="stat-preview-label" text="Véhicule Prêt" />
+                    <Label styleClass="stat-preview-sublabel" text="Disponible après création" />
+                </VBox>
+
+                <VBox alignment="CENTER" spacing="8" styleClass="stat-preview-card">
+                    <Label text="✅" style="-fx-font-size: 32px;" />
+                    <Label styleClass="stat-preview-label" text="Vérification" />
+                    <Label styleClass="stat-preview-sublabel" text="Matricule unique validé" />
+                </VBox>
+            </HBox>
+
+            <!-- Footer -->
+            <Label styleClass="footer-text" text="* Tous les champs sont obligatoires" />
+
+        </VBox>
+    </content>
+</ScrollPane>

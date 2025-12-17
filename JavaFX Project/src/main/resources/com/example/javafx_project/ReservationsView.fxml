@@ -6,21 +6,48 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx"
+<BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.javafx_project.ReservationsController"
-            spacing="20" style="-fx-padding: 20;">
-    <Label text="Liste des Réservations" style="-fx-font-size: 24px;" />
-    <TableView fx:id="reservationsTable" prefHeight="400">
-        <columns>
-            <TableColumn text="ID" fx:id="idCol" />
-            <TableColumn text="Trajet ID" fx:id="trajetIdCol" />
-            <TableColumn text="Ville Départ" fx:id="villeDepartCol" />
-            <TableColumn text="Ville Arrivée" fx:id="villeArriveeCol" />
-            <TableColumn text="Nom" fx:id="nomCol" />
-            <TableColumn text="Prénom" fx:id="prenomCol" />
-            <TableColumn text="CIN" fx:id="cinCol" />
-            <TableColumn text="Place" fx:id="placeCol" />
-        </columns>
-    </TableView>
-</VBox>
+            prefHeight="600.0" prefWidth="1000.0"
+            stylesheets="@styles/Reservations.css">
+
+    <!-- Sidebar (Left) - Minimale pour cohérence -->
+    <left>
+        <VBox prefWidth="200.0" styleClass="sidebar">
+            <VBox styleClass="sidebar-header">
+                <Label styleClass="sidebar-title" text="Réservations" />
+            </VBox>
+            <VBox spacing="10" style="-fx-padding: 20;">
+                <Button fx:id="backBtn" onAction="#goBack" styleClass="nav-button" text="⬅ Retour" />
+            </VBox>
+        </VBox>
+    </left>
+
+    <!-- Contenu central (Center) - Avec ScrollPane -->
+    <center>
+        <ScrollPane styleClass="scroll-pane" fitToWidth="true">
+            <VBox alignment="TOP_CENTER" spacing="25" style="-fx-padding: 30;">
+                <Label text="Liste des Réservations" styleClass="page-title" />
+
+                <!-- TableView dans une carte -->
+                <VBox styleClass="card" spacing="10">
+                    <TableView fx:id="reservationsTable" prefHeight="400.0" styleClass="table-view">
+                        <columns>
+                            <TableColumn text="ID" fx:id="idCol" styleClass="table-column" />
+                            <TableColumn text="Trajet ID" fx:id="trajetIdCol" styleClass="table-column" />
+                            <TableColumn text="Ville Départ" fx:id="villeDepartCol" styleClass="table-column" />
+                            <TableColumn text="Ville Arrivée" fx:id="villeArriveeCol" styleClass="table-column" />
+                            <TableColumn text="Nom" fx:id="nomCol" styleClass="table-column" />
+                            <TableColumn text="Prénom" fx:id="prenomCol" styleClass="table-column" />
+                            <TableColumn text="CIN" fx:id="cinCol" styleClass="table-column" />
+                            <TableColumn text="Place" fx:id="placeCol" styleClass="table-column" />
+                            <TableColumn text="Télécharger" fx:id="telechargerCol" styleClass="table-column" />
+                        </columns>
+                    </TableView>
+                </VBox>
+            </VBox>
+        </ScrollPane>
+    </center>
+
+</BorderPane>

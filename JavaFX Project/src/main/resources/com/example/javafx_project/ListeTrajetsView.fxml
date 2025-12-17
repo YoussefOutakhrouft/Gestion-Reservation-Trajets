@@ -2,34 +2,115 @@
 
 <?import java.lang.*?>
 <?import java.util.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx"
+<ScrollPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.javafx_project.ListeTrajetsController"
-            spacing="10" style="-fx-padding: 20;">
-    <children>
-        <Label text="Liste des Trajets" style="-fx-font-size: 18px; -fx-font-weight: bold;" />
-        <!-- TableView pour afficher les trajets -->
-        <TableView fx:id="trajetsTable" prefHeight="300.0">
-            <columns>
-                <TableColumn fx:id="idColumn" text="ID" prefWidth="50" />
-                <TableColumn fx:id="dateColumn" text="Date" prefWidth="100" />
-                <TableColumn fx:id="heureDepartColumn" text="Heure Départ" prefWidth="100" />
-                <TableColumn fx:id="villeDepartColumn" text="Ville Départ" prefWidth="120" />
-                <TableColumn fx:id="villeArriveeColumn" text="Ville Arrivée" prefWidth="120" />
-                <TableColumn fx:id="vehiculeColumn" text="Véhicule" prefWidth="120" />
-                <TableColumn fx:id="placesRestantesColumn" text="Places Restantes" prefWidth="120" />
-            </columns>
-        </TableView>
-        <!-- Boutons d'action -->
-        <HBox spacing="10">
-            <Button fx:id="modifierBtn" text="Modifier Trajet" onAction="#modifierTrajet" style="-fx-background-color: #ffc107; -fx-text-fill: black;" />
-            <Button fx:id="supprimerBtn" text="Supprimer Trajet" onAction="#supprimerTrajet" style="-fx-background-color: #dc3545; -fx-text-fill: white;" />
-            <Button fx:id="refreshBtn" text="Actualiser" onAction="#refreshList" style="-fx-background-color: #28a745; -fx-text-fill: white;" />
-        </HBox>
-    </children>
+            fitToWidth="true"
+            hbarPolicy="NEVER"
+            vbarPolicy="AS_NEEDED"
+            stylesheets="@styles/trajets_list.css"
+            styleClass="main-scroll">
 
-</VBox>
+    <content>
+        <VBox alignment="TOP_CENTER" spacing="35.0" styleClass="main-container">
+
+            <!-- En-tête avec dégradé -->
+            <VBox styleClass="header-section" spacing="10">
+                <HBox alignment="CENTER" spacing="12">
+                    <Label styleClass="header-icon" text="🚗" />
+                    <Label styleClass="header-title" text="Liste des Trajets" />
+                </HBox>
+                <Label styleClass="header-subtitle" text="Consultez et gérez tous vos trajets disponibles" />
+            </VBox>
+
+            <!-- Section Actions Rapides -->
+            <HBox spacing="15" alignment="CENTER" styleClass="actions-bar">
+                <Button fx:id="refreshBtn" onAction="#refreshList" styleClass="action-refresh-button">
+                    <graphic>
+                        <HBox spacing="8" alignment="CENTER">
+                            <Label text="🔄" style="-fx-font-size: 16px;" />
+                            <Label text="Actualiser" />
+                        </HBox>
+                    </graphic>
+                </Button>
+
+                <Region HBox.hgrow="ALWAYS" />
+
+                <Label fx:id="trajetCountLabel" styleClass="trajet-count" text="0 trajets" />
+            </HBox>
+
+            <!-- Section TableView -->
+            <VBox styleClass="content-card" spacing="25">
+                <HBox alignment="CENTER_LEFT" spacing="10">
+                    <Label styleClass="section-title" text="📋 Trajets Disponibles" />
+                </HBox>
+
+                <TableView fx:id="trajetsTable" styleClass="modern-table">
+                    <columns>
+                        <TableColumn fx:id="idColumn" prefWidth="70" styleClass="table-column-header" text="ID" />
+                        <TableColumn fx:id="dateColumn" prefWidth="120" styleClass="table-column-header" text="Date" />
+                        <TableColumn fx:id="heureDepartColumn" prefWidth="120" styleClass="table-column-header" text="Heure Départ" />
+                        <TableColumn fx:id="villeDepartColumn" prefWidth="150" styleClass="table-column-header" text="Ville Départ" />
+                        <TableColumn fx:id="villeArriveeColumn" prefWidth="150" styleClass="table-column-header" text="Ville Arrivée" />
+                        <TableColumn fx:id="vehiculeColumn" prefWidth="140" styleClass="table-column-header" text="Véhicule" />
+                        <TableColumn fx:id="placesRestantesColumn" prefWidth="140" styleClass="table-column-header" text="Places Restantes" />
+                    </columns>
+                </TableView>
+
+                <!-- Boutons d'action sur le trajet sélectionné -->
+                <HBox spacing="15" alignment="CENTER" styleClass="action-buttons-container">
+                    <Button fx:id="modifierBtn" onAction="#modifierTrajet" styleClass="edit-button">
+                        <graphic>
+                            <HBox spacing="8" alignment="CENTER">
+                                <Label text="✏️" style="-fx-font-size: 16px;" />
+                                <Label text="Modifier Trajet" />
+                            </HBox>
+                        </graphic>
+                    </Button>
+
+                    <Button fx:id="supprimerBtn" onAction="#supprimerTrajet" styleClass="delete-button">
+                        <graphic>
+                            <HBox spacing="8" alignment="CENTER">
+                                <Label text="🗑️" style="-fx-font-size: 16px;" />
+                                <Label text="Supprimer Trajet" />
+                            </HBox>
+                        </graphic>
+                    </Button>
+                </HBox>
+
+                <!-- Message d'information -->
+                <Label styleClass="info-message" text="💡 Sélectionnez un trajet dans la liste pour le modifier ou le supprimer" />
+            </VBox>
+
+            <!-- Section Statistiques (optionnel) -->
+            <HBox spacing="20" alignment="CENTER" styleClass="stats-container">
+                <VBox alignment="CENTER" spacing="8" styleClass="stat-card">
+                    <Label text="📍" style="-fx-font-size: 32px;" />
+                    <Label fx:id="totalTrajetsLabel" text="0" styleClass="stat-number" />
+                    <Label text="Trajets Actifs" styleClass="stat-label" />
+                </VBox>
+
+                <VBox alignment="CENTER" spacing="8" styleClass="stat-card">
+                    <Label text="🪑" style="-fx-font-size: 32px;" />
+                    <Label fx:id="totalPlacesLabel" text="0" styleClass="stat-number" />
+                    <Label text="Places Disponibles" styleClass="stat-label" />
+                </VBox>
+
+                <VBox alignment="CENTER" spacing="8" styleClass="stat-card">
+                    <Label text="📅" style="-fx-font-size: 32px;" />
+                    <Label fx:id="prochainTrajetLabel" text="--:--" styleClass="stat-number" />
+                    <Label text="Prochain Trajet" styleClass="stat-label" />
+                </VBox>
+            </HBox>
+
+            <!-- Footer -->
+            <Label styleClass="footer-text" text="Les trajets passés sont automatiquement supprimés ⏰" />
+
+        </VBox>
+    </content>
+</ScrollPane>

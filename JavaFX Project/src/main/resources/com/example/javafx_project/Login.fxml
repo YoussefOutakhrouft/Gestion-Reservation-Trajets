@@ -29,11 +29,11 @@
                     </padding>
 
                     <!-- Titre -->
-                    <Label style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="Agent Login" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+                    <Label style="-fx-font-size: 28px; -fx-font-weight: bold; -fx-text-fill: #333333;" text="App transport Login" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
                     <!-- Sous-titre -->
                     <Label style="-fx-font-size: 14px; -fx-text-fill: #777777;" text="Veuillez entrer vos identifiants pour continuer" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                     <!-- Username/Email Label -->
-                    <Label style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #555555;" text="Nom d'utilisateur / Email" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
+                    <Label style="-fx-font-size: 14px; -fx-font-weight: bold; -fx-text-fill: #555555;" text="Email" GridPane.halignment="LEFT" GridPane.rowIndex="2" />
                     <!-- Username/Email Field -->
                     <TextField fx:id="emailField" promptText="Entrez votre adresse email" style="-fx-background-radius: 8; -fx-border-radius: 8; -fx-border-color: #cccccc; -fx-padding: 10;" GridPane.columnSpan="2" GridPane.hgrow="ALWAYS" GridPane.rowIndex="3" />
                     <!-- Password Label -->

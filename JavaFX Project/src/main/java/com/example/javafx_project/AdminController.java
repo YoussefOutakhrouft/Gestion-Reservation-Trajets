@@ -7,13 +7,12 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 public class AdminController {
     @FXML
     private Button gestionUtilisateursBtn;
-    @FXML
-    private Button gestionTachesBtn;
     @FXML
     private Button gestionTrajetsBtn;
     @FXML
@@ -26,21 +25,46 @@ public class AdminController {
     private Label contentLabel;
     @FXML
     private BorderPane rootPane;
+
+    @FXML private Region indicatorUsers;
+    @FXML private Region indicatorTrajets;
+    @FXML private Region indicatorVehicules;
+    @FXML private Region indicatorListeTrajets;
+
+
+    @FXML
+    public void initialize() {
+        setSelectedButton(gestionUtilisateursBtn);
+    }
+    private void setSelectedButton(Button selected) {
+
+        Button[] buttons = {
+                gestionUtilisateursBtn,
+                gestionTrajetsBtn,
+                gestionVehiculesBtn,
+                listeTrajetsBtn
+        };
+
+        for (Button btn : buttons) {
+            btn.getStyleClass().remove("selected");
+        }
+
+        selected.getStyleClass().add("selected");
+    }
+
+
     @FXML
     private void showGestionUtilisateurs() {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("CreateUserView.fxml"));
             Parent createUserView = loader.load();
             rootPane.setCenter(createUserView);  // Définit le contenu central
+            setSelectedButton(gestionUtilisateursBtn);
+            //contentLabel.setText("Gestion des Utilisateurs");
         } catch (Exception e) {
             e.printStackTrace();
             contentLabel.setText("Erreur lors du chargement de la vue Gestion Utilisateurs.");
         }
-    }
-    @FXML
-    private void showGestionTaches() {
-        contentLabel.setText("Gestion des Tâches - Ici, affiche une liste/table des tâches.");
-        // Tu peux étendre pour charger un FXML séparé ou une TableView ici
     }
     @FXML
     private void showGestionTrajets() {
@@ -48,6 +72,7 @@ public class AdminController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("TrajetView.fxml"));
             Parent trajetView = loader.load();
             rootPane.setCenter(trajetView);
+            setSelectedButton(gestionTrajetsBtn);
         } catch (Exception e) {
             e.printStackTrace();
             contentLabel.setText("Erreur lors du chargement de la vue Gestion Trajets.");
@@ -59,6 +84,8 @@ public class AdminController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("VehiculeView.fxml"));
             Parent vehiculeView = loader.load();
             rootPane.setCenter(vehiculeView);
+            setSelectedButton(gestionVehiculesBtn);
+            //contentLabel.setText("Gestion des Véhicules");
         } catch (Exception e) {
             e.printStackTrace();
             contentLabel.setText("Erreur lors du chargement de la vue Gestion Véhicules.");
@@ -70,11 +97,16 @@ public class AdminController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ListeTrajetsView.fxml"));
             Parent listeTrajetsView = loader.load();
             rootPane.setCenter(listeTrajetsView);
+            setSelectedButton(listeTrajetsBtn);
+            //contentLabel.setText("Liste des Trajets");
         } catch (Exception e) {
             e.printStackTrace();
             contentLabel.setText("Erreur lors du chargement de la vue Liste Trajets.");
         }
     }
+
+
+
     @FXML
     private void logout() {
         try {

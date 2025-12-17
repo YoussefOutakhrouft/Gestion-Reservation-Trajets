@@ -9,58 +9,79 @@
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.javafx_project.GestController"
-            prefHeight="400.0" prefWidth="600.0">
+            prefHeight="700.0" prefWidth="1100.0"
+            stylesheets="@styles/Gest.css">
 
     <!-- Sidebar (Left) -->
     <left>
-        <VBox prefWidth="200.0" style="-fx-background-color: #343a40; -fx-padding: 10;">
-            <children>
-                <Label style="-fx-text-fill: white; -fx-font-size: 18px; -fx-font-weight: bold;" text="Gestionnaire Panel" />
-                <Button fx:id="mesTachesBtn" onAction="#showMesTaches" prefWidth="180.0" style="-fx-background-color: #007bff; -fx-text-fill: white; -fx-margin: 5;" text="Mes Tâches" />
-                <Button fx:id="reservationsBtn" onAction="#showReservations" prefWidth="180.0" style="-fx-background-color: #28a745; -fx-text-fill: white; -fx-margin: 5;" text="Voir Réservations" />
-                <Button fx:id="logoutBtn" onAction="#logout" prefWidth="180.0" style="-fx-background-color: #dc3545; -fx-text-fill: white; -fx-margin: 5;" text="Déconnexion" />
-            </children>
+        <VBox prefWidth="260.0" styleClass="sidebar">
+            <VBox styleClass="sidebar-header">
+                <Label styleClass="sidebar-title" text="Gestionnaire Panel" />
+            </VBox>
+            <VBox spacing="5" style="-fx-padding: 20;">
+                <Button fx:id="reservationsBtn" onAction="#showReservations" styleClass="nav-button">
+                    <graphic>
+                        <HBox alignment="CENTER_LEFT" spacing="12">
+                            <Region fx:id="indicatorReservations" prefHeight="30" prefWidth="4" styleClass="nav-indicator" />
+                            <Label text="📅 Voir Réservations" textFill="WHITE" />
+                        </HBox>
+                    </graphic>
+                </Button>
+            </VBox>
+            <Region VBox.vgrow="ALWAYS" />
+            <VBox style="-fx-padding: 20;">
+                <Button fx:id="logoutBtn" onAction="#logout" styleClass="logout-button" text="🚪 Déconnexion" />
+            </VBox>
         </VBox>
     </left>
-    <!-- Contenu central (Center) - Dynamique -->
+
+    <!-- Contenu central (Center) - Dynamique avec ScrollPane -->
     <center>
-        <VBox alignment="CENTER" spacing="20.0" style="-fx-padding: 20;">
-            <children>
-                <Label fx:id="contentLabel" style="-fx-font-size: 24px; -fx-text-fill: #333333;" text="Bienvenue dans l'interface Gestionnaire !" />
+        <ScrollPane styleClass="scroll-pane" fitToWidth="true">
+            <VBox alignment="CENTER" spacing="25" style="-fx-padding: 30;">
+                <Label fx:id="contentLabel" styleClass="page-title" text="Bienvenue dans l'interface Gestionnaire !" />
 
                 <!-- Section Recherche Trajet -->
-                <Label text="Rechercher un Trajet" style="-fx-font-size: 18px;" />
-                <HBox spacing="10.0">
-                    <TextField fx:id="villeDepartField" promptText="Ville de Départ" />
-                    <TextField fx:id="villeArriveeField" promptText="Ville d'Arrivée" />
-                    <DatePicker fx:id="datePicker" promptText="Date" />
-                    <Button fx:id="searchBtn" onAction="#searchTrajets" text="Rechercher" />
-                </HBox>
+                <VBox styleClass="card" spacing="15">
+                    <Label text="Rechercher un Trajet" styleClass="section-title" />
+                    <HBox spacing="15" alignment="CENTER">
+                        <TextField fx:id="villeDepartField" styleClass="input-field" promptText="Ville de Départ" />
+                        <TextField fx:id="villeArriveeField" styleClass="input-field" promptText="Ville d'Arrivée" />
+                        <DatePicker fx:id="datePicker" styleClass="input-field" promptText="Date" />
+                        <Button fx:id="searchBtn" onAction="#searchTrajets" styleClass="action-button" text="🔍 Rechercher" />
+                    </HBox>
+                </VBox>
 
                 <!-- Liste des Trajets (TableView) -->
-                <TableView fx:id="trajetsTable" prefHeight="200.0">
-                    <columns>
-                        <TableColumn text="ID" fx:id="trajetIdCol" />
-                        <TableColumn text="Départ" fx:id="villeDepartCol" />
-                        <TableColumn text="Arrivée" fx:id="villeArriveeCol" />
-                        <TableColumn text="Date" fx:id="dateCol" />
-                        <TableColumn text="Places Restantes" fx:id="placesCol" />
-                    </columns>
-                </TableView>
-                <!-- Section Réservation -->
-                <Label text="Réserver un Billet" style="-fx-font-size: 18px;" />
-                <VBox spacing="10.0">
-                    <HBox spacing="10.0">
-                        <TextField fx:id="nomField" promptText="Nom" />
-                        <TextField fx:id="prenomField" promptText="Prénom" />
-                        <TextField fx:id="cinField" promptText="CIN" />
-                        <TextField fx:id="placeField" promptText="Numéro de Place" />
-                    </HBox>
-                    <ComboBox fx:id="segmentComboBox" promptText="Sélectionnez un segment" prefWidth="300.0" />
-                    <Button fx:id="reserverBtn" onAction="#reserverBillet" text="Réserver" />
+                <VBox styleClass="card" spacing="10">
+                    <Label text="Liste des Trajets" styleClass="section-title" />
+                    <TableView fx:id="trajetsTable" prefHeight="250.0" styleClass="table-view">
+                        <columns>
+                            <TableColumn text="ID" fx:id="trajetIdCol" styleClass="table-column" />
+                            <TableColumn text="Départ" fx:id="villeDepartCol" styleClass="table-column" />
+                            <TableColumn text="Arrivée" fx:id="villeArriveeCol" styleClass="table-column" />
+                            <TableColumn text="Date" fx:id="dateCol" styleClass="table-column" />
+                            <TableColumn text="Places Restantes" fx:id="placesCol" styleClass="table-column" />
+                        </columns>
+                    </TableView>
                 </VBox>
-            </children>
-        </VBox>
+
+                <!-- Section Réservation -->
+                <VBox styleClass="card" spacing="15">
+                    <Label text="Réserver un Billet" styleClass="section-title" />
+                    <VBox spacing="15">
+                        <HBox spacing="15" alignment="CENTER">
+                            <TextField fx:id="nomField" styleClass="input-field" promptText="Nom" />
+                            <TextField fx:id="prenomField" styleClass="input-field" promptText="Prénom" />
+                            <TextField fx:id="cinField" styleClass="input-field" promptText="CIN" />
+                            <TextField fx:id="placeField" styleClass="input-field" promptText="Numéro de Place" />
+                        </HBox>
+                        <ComboBox fx:id="segmentComboBox" styleClass="input-field" promptText="Sélectionnez un segment" prefWidth="400.0" />
+                        <Button fx:id="reserverBtn" onAction="#reserverBillet" styleClass="action-button" text="🎫 Réserver" />
+                    </VBox>
+                </VBox>
+            </VBox>
+        </ScrollPane>
     </center>
 
 </BorderPane>

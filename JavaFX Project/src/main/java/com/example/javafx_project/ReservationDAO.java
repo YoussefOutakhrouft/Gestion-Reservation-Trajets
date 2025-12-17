@@ -141,4 +141,15 @@ public class ReservationDAO {
         TrajetDAO trajetDAO = new TrajetDAO();
         return trajetDAO.searchTrajets(villeDepart, villeArrivee, date);
     }
+
+    public Segment getSegmentForReservation(int trajetId, String villeDepart, String villeArrivee) {
+        List<Segment> segments = getSegmentsForTrajet(trajetId);
+        for (Segment segment : segments) {
+            if (segment.getVilleDepart().equals(villeDepart) && segment.getVilleArrivee().equals(villeArrivee)) {
+                return segment;
+            }
+        }
+        return null;  // Retourner null si le segment n'est pas trouvé
+    }
+
 }

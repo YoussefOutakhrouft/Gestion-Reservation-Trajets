@@ -1,0 +1,124 @@
+/* ===== ROOT ===== */
+.root {
+    -fx-font-family: "Segoe UI", "Inter", "Roboto", sans-serif; /* Polices modernes avec fallbacks */
+    -fx-background-color: linear-gradient(to bottom, #f8fafc, #e2e8f0); /* Gradient subtil pour un fond moderne */
+}
+
+/* ===== SIDEBAR ===== */
+.sidebar {
+    -fx-background-color: linear-gradient(to bottom, #1e293b, #334155); /* Gradient pour profondeur */
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 15, 0, 4, 0); /* Ombre plus raffinée */
+}
+
+.sidebar-header {
+    -fx-background-color: linear-gradient(to right, #0f172a, #1e293b); /* Gradient header */
+    -fx-padding: 30 20 25 20;
+}
+
+.logo-box {
+    -fx-background-color: linear-gradient(to bottom, #3b82f6, #2563eb); /* Gradient bleu vibrant */
+    -fx-background-radius: 16; /* Bordures plus arrondies */
+    -fx-padding: 14;
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.3), 8, 0, 0, 2); /* Glow subtil */
+}
+
+.logo-text {
+    -fx-font-size: 24px;
+    -fx-text-fill: white;
+}
+
+/* ===== NAV BUTTONS ===== */
+.nav-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #e5e7eb;
+    -fx-font-size: 15px;
+    -fx-font-weight: 500;
+    -fx-alignment: CENTER_LEFT;
+    -fx-padding: 12 14 12 14;
+    -fx-background-radius: 12; /* Bordures plus arrondies */
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s ease; /* Animation fluide */
+}
+
+.nav-button:hover {
+    -fx-background-color: rgba(255,255,255,0.12);
+    -fx-scale-x: 1.02; /* Légère échelle au survol */
+    -fx-scale-y: 1.02;
+}
+
+.nav-button.selected {
+    -fx-background-color: linear-gradient(to right, #2563eb, #1d4ed8); /* Gradient sélection */
+    -fx-text-fill: white;
+    -fx-font-weight: 700;
+    -fx-effect: dropshadow(gaussian, rgba(37,99,235,0.5), 12, 0, 0, 6); /* Glow plus prononcé */
+}
+
+.nav-indicator {
+    -fx-background-color: transparent;
+    -fx-background-radius: 2;
+}
+
+/* Visible uniquement si sélectionné */
+.nav-button.selected .nav-indicator {
+    -fx-background-color: #93c5fd;
+}
+
+/* ===== LOGOUT ===== */
+.logout-button {
+    -fx-background-color: linear-gradient(to right, #ef4444, #dc2626); /* Gradient rouge */
+    -fx-text-fill: white;
+    -fx-font-weight: 600;
+    -fx-background-radius: 12;
+    -fx-transition: all 0.3s ease;
+}
+
+.logout-button:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(gaussian, rgba(239,68,68,0.4), 10, 0, 0, 4);
+}
+
+/* ===== WELCOME SECTION ===== */
+.welcome-section {
+    -fx-background-color: white;
+    -fx-background-radius: 20;
+    -fx-padding: 50;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 20, 0, 0, 8); /* Ombre élégante */
+    -fx-alignment: CENTER;
+}
+
+.welcome-icon {
+    -fx-font-size: 60px;
+    -fx-text-fill: #3b82f6; /* Couleur accent */
+}
+
+.welcome-title {
+    -fx-font-size: 32px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1e293b;
+    -fx-text-alignment: CENTER;
+}
+
+.welcome-subtitle {
+    -fx-font-size: 16px;
+    -fx-text-fill: #64748b;
+    -fx-text-alignment: CENTER;
+    -fx-max-width: 500px; /* Limite la largeur pour lisibilité */
+}
+
+.welcome-button {
+    -fx-background-color: linear-gradient(to right, #3b82f6, #2563eb);
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: 600;
+    -fx-background-radius: 12;
+    -fx-padding: 15 30;
+    -fx-cursor: hand;
+    -fx-transition: all 0.3s ease;
+}
+
+.welcome-button:hover {
+    -fx-scale-x: 1.05;
+    -fx-scale-y: 1.05;
+    -fx-effect: dropshadow(gaussian, rgba(59,130,246,0.4), 10, 0, 0, 4);
+}

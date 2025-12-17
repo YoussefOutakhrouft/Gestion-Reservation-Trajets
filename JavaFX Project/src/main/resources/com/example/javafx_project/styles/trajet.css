@@ -1,0 +1,424 @@
+/* ============================
+   CONFIGURATION GÉNÉRALE
+   ============================ */
+
+.main-scroll {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, #667eea 0%, #764ba2 100%);
+}
+
+.main-container {
+    -fx-padding: 40 50 40 50;
+    -fx-background-color: transparent;
+}
+
+/* ============================
+   EN-TÊTE
+   ============================ */
+
+.header-section {
+    -fx-padding: 30 20 30 20;
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 100%, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%);
+    -fx-background-radius: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 20, 0.3, 0, 8);
+}
+
+.header-icon {
+    -fx-font-size: 42px;
+    -fx-effect: dropshadow(gaussian, rgba(102,126,234,0.5), 10, 0.5, 0, 3);
+}
+
+.header-title {
+    -fx-font-size: 36px;
+    -fx-font-weight: bold;
+    -fx-fill: linear-gradient(from 0% 0% to 100% 0%, #667eea, #764ba2);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 5, 0, 0, 2);
+}
+
+.header-subtitle {
+    -fx-font-size: 16px;
+    -fx-text-fill: #6b7280;
+    -fx-font-style: italic;
+}
+
+/* ============================
+   CARTES DE CONTENU
+   ============================ */
+
+.content-card {
+    -fx-background-color: white;
+    -fx-background-radius: 18;
+    -fx-padding: 35;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 25, 0.2, 0, 10);
+}
+
+.section-title {
+    -fx-font-size: 22px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1f2937;
+}
+
+/* Couleurs spécifiques par section */
+.section-arrets {
+    -fx-border-color: #fbbf24;
+    -fx-border-width: 0 0 0 4;
+}
+
+.section-prix {
+    -fx-border-color: #ec4899;
+    -fx-border-width: 0 0 0 4;
+}
+
+/* ============================
+   FORMULAIRE
+   ============================ */
+
+.form-grid {
+    -fx-padding: 10 0 0 0;
+}
+
+.field-label {
+    -fx-font-size: 15px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #374151;
+}
+
+.modern-textfield,
+.modern-combobox,
+.modern-datepicker {
+    -fx-background-color: #f9fafb;
+    -fx-background-radius: 10;
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 2;
+    -fx-border-radius: 10;
+    -fx-padding: 12 16 12 16;
+    -fx-font-size: 14px;
+    -fx-text-fill: #1f2937;
+    -fx-prompt-text-fill: #9ca3af;
+}
+
+.modern-textfield:focused,
+.modern-combobox:focused,
+.modern-datepicker:focused {
+    -fx-background-color: white;
+    -fx-border-color: #667eea;
+    -fx-border-width: 2;
+    -fx-effect: dropshadow(gaussian, rgba(102,126,234,0.25), 8, 0.3, 0, 2);
+}
+
+.modern-textfield:hover,
+.modern-combobox:hover,
+.modern-datepicker:hover {
+    -fx-border-color: #cbd5e1;
+}
+
+/* DatePicker spécifique */
+.modern-datepicker .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.modern-datepicker .arrow {
+    -fx-background-color: #667eea;
+}
+
+/* ComboBox spécifique */
+.modern-combobox .list-cell {
+    -fx-background-color: white;
+    -fx-text-fill: #1f2937;
+    -fx-padding: 10 15 10 15;
+}
+
+.modern-combobox .list-cell:hover {
+    -fx-background-color: #f3f4f6;
+}
+
+.modern-combobox .list-cell:selected {
+    -fx-background-color: #ede9fe;
+    -fx-text-fill: #5b21b6;
+}
+
+.modern-combobox .arrow-button {
+    -fx-background-color: transparent;
+}
+
+.modern-combobox .arrow {
+    -fx-background-color: #667eea;
+}
+
+/* ============================
+   CONTENEURS DYNAMIQUES
+   ============================ */
+
+.arrets-container,
+.prix-container {
+    -fx-background-color: #f9fafb;
+    -fx-background-radius: 12;
+    -fx-padding: 20;
+    -fx-min-height: 100;
+}
+
+.empty-state {
+    -fx-font-size: 14px;
+    -fx-text-fill: #9ca3af;
+    -fx-font-style: italic;
+    -fx-padding: 20;
+}
+
+/* Style pour les lignes d'arrêts */
+.arret-row {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-padding: 15;
+    -fx-spacing: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 2);
+    -fx-border-color: #fbbf24;
+    -fx-border-width: 0 0 0 3;
+    -fx-border-radius: 10;
+}
+
+.arret-row:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 3);
+}
+
+/* Style pour les lignes de prix */
+.prix-row {
+    -fx-background-color: white;
+    -fx-background-radius: 10;
+    -fx-padding: 15;
+    -fx-spacing: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.05), 5, 0, 0, 2);
+    -fx-border-color: #ec4899;
+    -fx-border-width: 0 0 0 3;
+    -fx-border-radius: 10;
+}
+
+.prix-row:hover {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 8, 0, 0, 3);
+}
+
+/* TextField dans les lignes dynamiques */
+.arret-row .text-field,
+.prix-row .text-field {
+    -fx-background-color: #f9fafb;
+    -fx-border-color: #e5e7eb;
+    -fx-border-width: 1;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 10 12 10 12;
+    -fx-font-size: 13px;
+}
+
+.arret-row .text-field:focused,
+.prix-row .text-field:focused {
+    -fx-border-color: #667eea;
+    -fx-border-width: 2;
+}
+
+/* Labels dans les lignes de prix */
+.prix-row .label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #374151;
+    -fx-font-weight: 600;
+}
+
+/* ============================
+   BOUTONS
+   ============================ */
+
+.add-button {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #fbbf24, #f59e0b);
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-padding: 10 20 10 20;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(251,191,36,0.4), 8, 0.3, 0, 3);
+}
+
+.add-button:hover {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #f59e0b, #d97706);
+    -fx-scale-y: 1.05;
+    -fx-scale-x: 1.05;
+    -fx-effect: dropshadow(gaussian, rgba(251,191,36,0.6), 12, 0.4, 0, 4);
+}
+
+.add-button:pressed {
+    -fx-background-color: #d97706;
+    -fx-scale-y: 0.98;
+    -fx-scale-x: 0.98;
+}
+
+.generate-button {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #ec4899, #db2777);
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 10;
+    -fx-padding: 10 20 10 20;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(236,72,153,0.4), 8, 0.3, 0, 3);
+}
+
+.generate-button:hover {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #db2777, #be185d);
+    -fx-scale-y: 1.05;
+    -fx-scale-x: 1.05;
+    -fx-effect: dropshadow(gaussian, rgba(236,72,153,0.6), 12, 0.4, 0, 4);
+}
+
+.generate-button:pressed {
+    -fx-background-color: #be185d;
+    -fx-scale-y: 0.98;
+    -fx-scale-x: 0.98;
+}
+
+.remove-button {
+    -fx-background-color: #ef4444;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+    -fx-background-radius: 8;
+    -fx-padding: 8 14 8 14;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(239,68,68,0.3), 5, 0.3, 0, 2);
+}
+
+.remove-button:hover {
+    -fx-background-color: #dc2626;
+    -fx-scale-y: 1.05;
+    -fx-scale-x: 1.05;
+}
+
+.remove-button:pressed {
+    -fx-background-color: #b91c1c;
+    -fx-scale-y: 0.98;
+    -fx-scale-x: 0.98;
+}
+
+/* ============================
+   BOUTONS D'ACTION PRINCIPAUX
+   ============================ */
+
+.action-buttons-bar {
+    -fx-padding: 10 0 0 0;
+}
+
+.save-button {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #10b981, #059669);
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 12;
+    -fx-padding: 14 32 14 32;
+    -fx-cursor: hand;
+    -fx-effect: dropshadow(gaussian, rgba(16,185,129,0.4), 12, 0.4, 0, 4);
+}
+
+.save-button:hover {
+    -fx-background-color: linear-gradient(from 0% 0% to 100% 0%, #059669, #047857);
+    -fx-scale-y: 1.05;
+    -fx-scale-x: 1.05;
+    -fx-effect: dropshadow(gaussian, rgba(16,185,129,0.6), 16, 0.5, 0, 6);
+}
+
+.save-button:pressed {
+    -fx-background-color: #047857;
+    -fx-scale-y: 0.98;
+    -fx-scale-x: 0.98;
+}
+
+.cancel-button {
+    -fx-background-color: white;
+    -fx-text-fill: #ef4444;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 12;
+    -fx-padding: 14 32 14 32;
+    -fx-cursor: hand;
+    -fx-border-color: #ef4444;
+    -fx-border-width: 2;
+    -fx-border-radius: 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 8, 0.3, 0, 2);
+}
+
+.cancel-button:hover {
+    -fx-background-color: #fef2f2;
+    -fx-scale-y: 1.05;
+    -fx-scale-x: 1.05;
+    -fx-effect: dropshadow(gaussian, rgba(239,68,68,0.3), 12, 0.4, 0, 4);
+}
+
+.cancel-button:pressed {
+    -fx-background-color: #fee2e2;
+    -fx-scale-y: 0.98;
+    -fx-scale-x: 0.98;
+}
+
+/* Hériter la couleur du texte pour les labels dans les boutons */
+.save-button .label,
+.cancel-button .label,
+.add-button .label,
+.generate-button .label,
+.remove-button .label {
+    -fx-text-fill: inherit;
+}
+
+/* ============================
+   FOOTER
+   ============================ */
+
+.footer-text {
+    -fx-font-size: 13px;
+    -fx-text-fill: rgba(255,255,255,0.85);
+    -fx-font-style: italic;
+    -fx-padding: 20 0 0 0;
+}
+
+/* ============================
+   SCROLLBAR PRINCIPALE
+   ============================ */
+
+.main-scroll .scroll-bar:vertical {
+    -fx-background-color: transparent;
+    -fx-padding: 5;
+}
+
+.main-scroll .scroll-bar:vertical .track {
+    -fx-background-color: rgba(255,255,255,0.2);
+    -fx-background-radius: 10;
+}
+
+.main-scroll .scroll-bar:vertical .thumb {
+    -fx-background-color: rgba(255,255,255,0.5);
+    -fx-background-radius: 10;
+}
+
+.main-scroll .scroll-bar:vertical .thumb:hover {
+    -fx-background-color: rgba(255,255,255,0.7);
+}
+
+.main-scroll .scroll-bar:vertical .thumb:pressed {
+    -fx-background-color: rgba(255,255,255,0.9);
+}
+
+/* ============================
+   CORRECTIONS SPÉCIFIQUES
+   ============================ */
+
+.main-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.main-scroll .corner {
+    -fx-background-color: transparent;
+}
+
+/* Tooltip personnalisé */
+.tooltip {
+    -fx-background-color: #1f2937;
+    -fx-text-fill: white;
+    -fx-background-radius: 8;
+    -fx-font-size: 12px;
+    -fx-padding: 8 12 8 12;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 8, 0.3, 0, 2);
+}

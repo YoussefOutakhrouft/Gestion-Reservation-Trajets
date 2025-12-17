@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 public class GestController {
@@ -19,6 +20,8 @@ public class GestController {
     private TextField villeDepartField, villeArriveeField, nomField, prenomField, cinField, placeField;
     @FXML
     private DatePicker datePicker;
+    @FXML
+    private Region indicatorMesTaches, indicatorReservations;
     @FXML
     private TableView<Trajet> trajetsTable;
     @FXML
@@ -53,13 +56,10 @@ public class GestController {
     }
 
     @FXML
-    private void showMesTaches() {
-        contentLabel.setText("Mes Tâches - Ici, affiche les tâches assignées à l'utilisateur.");
-        // Tu peux étendre pour charger un FXML séparé ou une TableView ici
-    }
-
-    @FXML
     private void showReservations() {
+        reservationsBtn.getStyleClass().remove("selected");
+        // Ajouter la sélection au bouton actuel
+        reservationsBtn.getStyleClass().add("selected");
         try {
             // Charger une nouvelle vue pour afficher les réservations (TableView)
             FXMLLoader loader = new FXMLLoader(getClass().getResource("ReservationsView.fxml"));  // Créez ce FXML séparément

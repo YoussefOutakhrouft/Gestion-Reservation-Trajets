@@ -7,17 +7,25 @@
     <list default="true" id="6bbfeb6b-9004-4f66-a399-763597899745" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaFX Project/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFX Project/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFX Project/src/main/java/com/example/javafx_project/AdminController.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFX Project/src/main/java/com/example/javafx_project/AdminController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaFX Project/src/main/java/com/example/javafx_project/CreateUserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFX Project/src/main/java/com/example/javafx_project/CreateUserController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaFX Project/src/main/java/com/example/javafx_project/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFX Project/src/main/java/com/example/javafx_project/DatabaseConnection.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaFX Project/src/main/java/com/example/javafx_project/GestController.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFX Project/src/main/java/com/example/javafx_project/GestController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/JavaFX Project/src/main/java/com/example/javafx_project/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFX Project/src/main/java/com/example/javafx_project/HelloApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFX Project/src/main/java/com/example/javafx_project/ListeTrajetsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFX Project/src/main/java/com/example/javafx_project/ListeTrajetsController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFX Project/src/main/java/com/example/javafx_project/PdfGenerator.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFX Project/src/main/java/com/example/javafx_project/PdfGenerator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFX Project/src/main/java/com/example/javafx_project/ReservationDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFX Project/src/main/java/com/example/javafx_project/ReservationDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFX Project/src/main/java/com/example/javafx_project/ReservationsController.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFX Project/src/main/java/com/example/javafx_project/ReservationsController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaFX Project/src/main/java/com/example/javafx_project/TrajetController.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFX Project/src/main/java/com/example/javafx_project/TrajetController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaFX Project/src/main/java/com/example/javafx_project/TrajetDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFX Project/src/main/java/com/example/javafx_project/TrajetDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFX Project/src/main/java/com/example/javafx_project/VehiculeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFX Project/src/main/java/com/example/javafx_project/VehiculeController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaFX Project/src/main/resources/com/example/javafx_project/AdminView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFX Project/src/main/resources/com/example/javafx_project/AdminView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaFX Project/src/main/resources/com/example/javafx_project/CreateUserView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFX Project/src/main/resources/com/example/javafx_project/CreateUserView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaFX Project/src/main/resources/com/example/javafx_project/GestView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFX Project/src/main/resources/com/example/javafx_project/GestView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFX Project/src/main/resources/com/example/javafx_project/ListeTrajetsView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFX Project/src/main/resources/com/example/javafx_project/ListeTrajetsView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaFX Project/src/main/resources/com/example/javafx_project/Login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFX Project/src/main/resources/com/example/javafx_project/Login.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFX Project/src/main/resources/com/example/javafx_project/ReservationsView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFX Project/src/main/resources/com/example/javafx_project/ReservationsView.fxml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/JavaFX Project/src/main/resources/com/example/javafx_project/TrajetView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFX Project/src/main/resources/com/example/javafx_project/TrajetView.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/JavaFX Project/src/main/resources/com/example/javafx_project/VehiculeView.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/JavaFX Project/src/main/resources/com/example/javafx_project/VehiculeView.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,20 +52,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.HelloApplication.executor": "Run",
-    "Application.JavaFX app.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "ignore.preview.features.used": "true",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/hp/Downloads/Gestion-Reservation-Trajets/JavaFX Project",
-    "settings.editor.selected.configurable": "preferences.pluginManager"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
+    &quot;Application.JavaFX app.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.preview.features.used&quot;: &quot;true&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/hp/Downloads/Gestion-Reservation-Trajets/JavaFX Project&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File&quot;: [
+      &quot;CSS&quot;
+    ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\hp\Documents\Sécurité IT et Confiance Numérique\S5\Algorithmes et POO en JAVA\POO en JAVA\Project\Gestion-Reservation-Trajets\JavaFX Project\src\main\resources\css" />

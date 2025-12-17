@@ -38,6 +38,8 @@ public class CreateUserController {
     private Button createUserBtn;
     @FXML
     private Label messageLabel;
+    @FXML
+    private Label userCountLabel;
 
     private UserDAO userDAO = new UserDAO();
     private User editingUser = null;
@@ -56,14 +58,18 @@ public class CreateUserController {
         roleComboBox.setValue("GEST"); // Valeur par défaut
         // Charge la liste des utilisateurs
         loadUsers();
+        // Cache le message au départ
+        messageLabel.setVisible(false);
+        messageLabel.setManaged(false);
     }
 
     public Callback<TableColumn<User, Void>, TableCell<User, Void>> createActionCellFactory() {
         return param -> new TableCell<>() {
-            private final Button editBtn = new Button("Modifier");
-            private final Button deleteBtn = new Button("Supprimer");
-            private final HBox pane = new HBox(editBtn, deleteBtn);
+            private final Button editBtn = new Button("✏️ Modifier");
+            private final Button deleteBtn = new Button("🗑️ Supprimer");
+            private final HBox pane = new HBox(10, editBtn, deleteBtn);
             {
+                pane.setAlignment(javafx.geometry.Pos.CENTER);
                 editBtn.getStyleClass().add("action-button");
                 deleteBtn.getStyleClass().addAll("action-button", "delete-button");
 
@@ -71,6 +77,7 @@ public class CreateUserController {
                     User user = getTableView().getItems().get(getIndex());
                     editUser(user);
                 });
+
                 deleteBtn.setOnAction(event -> {
                     User user = getTableView().getItems().get(getIndex());
                     deleteUser(user);
@@ -89,6 +96,12 @@ public class CreateUserController {
         usersTable.setItems(users);
     }
 
+    private void updateUserCount(int count) {
+        if (userCountLabel != null) {
+            userCountLabel.setText(count + (count > 1 ? " utilisateurs" : " utilisateur"));
+        }
+    }
+
     private void editUser(User user) {
         editingUser = user;
         nomField.setText(user.getNom());
@@ -97,18 +110,23 @@ public class CreateUserController {
         passwordField.setText(""); // Ne pré-remplit pas pour sécurité
         roleComboBox.setValue(user.getRole());
         createUserBtn.setText("Modifier Utilisateur");
+        hideMessage();
+
+        // Scroll vers le formulaire
+        nomField.requestFocus();
     }
     private void deleteUser(User user) {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Supprimer cet utilisateur ?", ButtonType.YES, ButtonType.NO);
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Êtes-vous sûr de vouloir supprimer l'utilisateur ?", ButtonType.YES, ButtonType.NO);
+        alert.setTitle("Confirmation de suppression");
+        alert.setHeaderText("Supprimer cet utilisateur");
+
         alert.showAndWait();
         if (alert.getResult() == ButtonType.YES) {
             if (userDAO.deleteUser(user.getId())) {
-                messageLabel.setStyle("-fx-text-fill: green;");
-                messageLabel.setText("Utilisateur supprimé !");
+                showMessage("✅ Utilisateur supprimé avec succès !", "success");
                 loadUsers();
             } else {
-                messageLabel.setStyle("-fx-text-fill: red;");
-                messageLabel.setText("Erreur lors de la suppression.");
+                showMessage("❌ Erreur lors de la suppression de l'utilisateur.", "error");
             }
         }
     }
@@ -122,10 +140,15 @@ public class CreateUserController {
         String role = roleComboBox.getValue();
         // Validation basique
         if (nom.isEmpty() || prenom.isEmpty() || email.isEmpty() || role == null) {
-            messageLabel.setStyle("-fx-text-fill: red;");
-            messageLabel.setText("Veuillez remplir tous les champs.");
+            showMessage("⚠️ Veuillez remplir tous les champs obligatoires.", "error");
             return;
         }
+
+        if (!email.matches("^[A-Za-z0-9+_.-]+@(.+)$")) {
+            showMessage("⚠️ Format d'email invalide.", "error");
+            return;
+        }
+
         if (editingUser != null) {
             // Modification
             editingUser.setNom(nom);
@@ -136,41 +159,60 @@ public class CreateUserController {
                 editingUser.setMotDePass(password);
             }
             if (userDAO.updateUser(editingUser)) {
-                messageLabel.setStyle("-fx-text-fill: green;");
-                messageLabel.setText("Utilisateur modifié !");
+                showMessage("✅ Utilisateur modifié avec succès !", "success");
                 clearForm();
                 loadUsers();
             } else {
-                messageLabel.setStyle("-fx-text-fill: red;");
-                messageLabel.setText("Erreur lors de la modification.");
+                showMessage("❌ Erreur lors de la modification de l'utilisateur.", "error");
             }
         } else {
             // Création
             if (password.isEmpty()) {
-                messageLabel.setStyle("-fx-text-fill: red;");
-                messageLabel.setText("Mot de passe requis pour la création.");
+                showMessage("⚠️ Le mot de passe est requis pour créer un utilisateur.", "error");
+                return;
+            }
+            if (password.length() < 6) {
+                showMessage("⚠️ Le mot de passe doit contenir au moins 6 caractères.", "error");
                 return;
             }
             User newUser = new User(nom, prenom, email, password, role);
             if (userDAO.insertUser(newUser)) {
-                messageLabel.setStyle("-fx-text-fill: green;");
-                messageLabel.setText("Utilisateur créé !");
+                showMessage("✅ Utilisateur créé avec succès !", "success");
                 clearForm();
                 loadUsers();
             } else {
-                messageLabel.setStyle("-fx-text-fill: red;");
-                messageLabel.setText("Erreur lors de la création.");
+                showMessage("❌ Erreur lors de la création de l'utilisateur.", "error");
             }
         }
     }
 
-    private void clearForm() {
+    @FXML
+    public void clearForm() {
         editingUser = null;
         nomField.clear();
         prenomField.clear();
         emailField.clear();
         passwordField.clear();
         roleComboBox.setValue("GEST");
-        createUserBtn.setText("Créer Utilisateur");
+        createUserBtn.setText("✅ Créer Utilisateur");
+        hideMessage();
+    }
+
+    private void showMessage(String message, String type) {
+        messageLabel.setText(message);
+        messageLabel.setVisible(true);
+        messageLabel.setManaged(true);
+
+        if (type.equals("success")) {
+            messageLabel.setStyle("-fx-text-fill: #16a34a; -fx-background-color: #f0fdf4; -fx-border-color: #bbf7d0;");
+        } else {
+            messageLabel.setStyle("-fx-text-fill: #dc2626; -fx-background-color: #fef2f2; -fx-border-color: #fecaca;");
+        }
+    }
+
+    private void hideMessage() {
+        messageLabel.setText("");
+        messageLabel.setVisible(false);
+        messageLabel.setManaged(false);
     }
 }
